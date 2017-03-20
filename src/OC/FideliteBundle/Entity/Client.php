@@ -2,6 +2,7 @@
 
 namespace OC\FideliteBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -85,9 +86,10 @@ class Client
     private $email;
 
     /**
-     * @ORM\ManyToOne(targetEntity="OC\FideliteBundle\Entity\Vente", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="OC\FideliteBundle\Entity\Vente", mappedBy="client", cascade={"persist", "remove", "merge"})
      */
-    private $vente;
+    private $ventes;
+
 
     /**
      * Get id
@@ -316,26 +318,24 @@ class Client
     }
 
     /**
-     * Set vente
-     *
-     * @param \OC\FideliteBundle\Entity\Vente $vente
-     *
-     * @return Client
+     * @return mixed
      */
-    public function setVente(\OC\FideliteBundle\Entity\Vente $vente)
+    public function getVentes()
     {
-        $this->vente = $vente;
-
-        return $this;
+        return $this->ventes;
     }
 
-    /**
-     * Get vente
-     *
-     * @return \OC\FideliteBundle\Entity\Vente
-     */
-    public function getVente()
+    public function __construct()
     {
-        return $this->vente;
+        $this->ventes = new ArrayCollection();
     }
+
+    public function addVente(Vente $vente)
+    {
+        $vente->setClient($this);
+        if (!$this->ventes->contains($vente)) {
+            $this->ventes->add($vente);
+        }
+    }
+
 }

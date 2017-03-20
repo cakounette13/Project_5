@@ -49,6 +49,8 @@ class VenteController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($vente);
+            $points = $this->get('oc_fidelite.points_fidelite')->calculPointsFidelite($vente);
+            $vente->setPointFidelite($points);
             $em->flush($vente);
 
             return $this->redirectToRoute('show_vte', array('id' => $vente->getId()));

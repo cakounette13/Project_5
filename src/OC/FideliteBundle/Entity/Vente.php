@@ -37,14 +37,19 @@ class Vente
 
 
     /**
-     * @ORM\OneToOne(targetEntity="OC\FideliteBundle\Entity\Client", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="OC\FideliteBundle\Entity\Client", inversedBy="ventes", cascade={"persist", "merge"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
 
-
-
     /**
+     * @var float
+     *
+     * @ORM\Column(name="pointFidelite", type="float", scale=2)
+     */
+    private $pointFidelite;
+
+        /**
      * Get id
      *
      * @return int
@@ -110,7 +115,7 @@ class Vente
      *
      * @return Vente
      */
-    public function setClient(\OC\FideliteBundle\Entity\Client $client)
+    public function setClient(Client $client)
     {
         $this->client = $client;
 
@@ -126,4 +131,21 @@ class Vente
     {
         return $this->client;
     }
+
+    /**
+     * @return float
+     */
+    public function getPointFidelite()
+    {
+        return $this->pointFidelite;
+    }
+
+    /**
+     * @param float $pointFidelite
+     */
+    public function setPointFidelite($pointFidelite)
+    {
+        $this->pointFidelite = $pointFidelite;
+    }
+
 }

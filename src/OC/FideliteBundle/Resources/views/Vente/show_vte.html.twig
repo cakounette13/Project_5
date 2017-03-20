@@ -10,30 +10,31 @@
                 <td>{{ vente.id }}</td>
             </tr>
             <tr>
-                <th>Datevente</th>
-                <td>{% if vente.dateVente %}{{ vente.dateVente|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <th>Date de la vente</th>
+                <td>{% if vente.dateVente %}{{ vente.dateVente|date('Y-m-d') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Montantventettc</th>
-                <td>{{ vente.montantVenteTtc }}</td>
+                <th>Montant de la vente</th>
+                <td>{{ vente.montantVente }}</td>
             </tr>
             <tr>
-                <th>Pointfidelite</th>
+                <th>Points de fidélité</th>
                 <td>{{ vente.pointFidelite }}</td>
             </tr>
             <tr>
-                <th>Client</th>
-                <td>{{ vente.client }}</td>
+                <th>Réf Client</th>
+                <td>{{ vente.client.nom }}</td>
+                <td>{{ vente.client.prenom }}</td>
             </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('vente_index') }}">Back to the list</a>
+            <a href="{{ path('all_vte') }}">Retour à la liste</a>
         </li>
         <li>
-            <a href="{{ path('vente_edit', { 'id': vente.id }) }}">Edit</a>
+            <a href="{{ path('edit_vte', { 'id': vente.id }) }}">Modifier</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
@@ -41,4 +42,7 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+    <div class="row">
+        <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
+    </div>
 {% endblock %}
