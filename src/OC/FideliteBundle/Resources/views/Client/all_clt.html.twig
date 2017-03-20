@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Gestion des clients
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Récapitulatif Liste des clients</h1>
+        </div>
+
+        <div class="row">
+        {#{{ render_flash_alerts() }}#}
+        </div>
+
+        <div class="row">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Voir</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Société</th>
+                    <th>Date de naissance</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for client in clients %}
+                    <tr>
+                        <td><a href={{ path('show_clt', { 'id': client.id }) }}>
+                                <image src={{ asset('images/glyphicons/png/glyphicons-52-eye-open.png') }} alt="voir"></image>
+                            </a></td>
+                        <td>{{ client.nom|capitalize }}</td>
+                        <td>{{ client.prenom|capitalize }}</td>
+                        <td>{{ client.societe|upper }}</td>
+                        <td>{{ client.dateNaissance|date("d/m/Y") }}</td>
+                        <td><a href={{ path('edit_clt', { 'id': client.id }) }}>
+                                <image src={{ asset('images/glyphicons/png/glyphicons-151-edit.png') }} alt="modifier"></image>
+                            </a></td>
+                        <td><a href={{ path('delete_clt', { 'id': client.id }) }}>
+                                <image src={{ asset('images/glyphicons/png/glyphicons-17-bin.png') }} alt="supprimer"></image>
+                            </a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        <div class="row">
+            <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
+        </div>
+
+    </div>
+
+
+{% endblock %}

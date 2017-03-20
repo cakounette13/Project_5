@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Nouvelle Vente
+{% endblock %}
+
+{% block body %}
+    <h1>Nouvelle vente</h1>
+
+    <div class="row">
+        <div class="col-xs- 10 col-md-6">
+            <div class="well">
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+                {{ form_errors(form) }}
+
+                <div class="form-group">
+                    {{ form_label(form.client, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(form.client) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(form.client) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.dateVente, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(form.dateVente) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(form.dateVente) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.montantVente, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(form.montantVente) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(form.montantVente) }}
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4 control-label">
+                    Nbr d'achats restants avant cadeau :
+                </div>
+
+                {{ form_rest(form) }}
+
+                <input type="submit" value="Valider" class="btn btn-default btn-lg active">
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
+    </div>
+
+
+
+{% endblock %}
+

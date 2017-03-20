@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Modification fiche client</h1>
+    <div class="row">
+        <div class="col-xs-10 col-md-6">
+            <div class="well">
+                {{ form_start(edit_form, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_errors(edit_form) }}
+
+                <div class="form-group">
+                    {{ form_label(edit_form.nom, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.nom) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.nom) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.prenom, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.prenom) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.prenom) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.societe, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.societe) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.societe) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.codePostal, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.codePostal) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.codePostal) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.ville, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.ville) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.ville) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.portable, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.portable) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.portable) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.dateNaissance, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.dateNaissance) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.dateNaissance) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.email, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.email) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.email) }}
+                    </div>
+                </div>
+
+                {{ form_rest(edit_form) }}
+
+                <input type="submit" value="Enregistrer" class="btn btn-default btn-lg active">
+
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <a role="button" class="btn btn-default active col-lg-2" href="{{ path('accueil') }}">Accueil</a>
+        <a role="button" class="btn btn-default active col-lg-2" href="{{ path('all_clt') }}">Liste Clients</a>
+    </div>
+    <div class="row">
+        {{ form_start(delete_form) }}
+        <input type="submit" value="Supprimer" class="btn btn-danger active ">
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock %}

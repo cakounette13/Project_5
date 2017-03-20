@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Fiche Client</h1>
+
+    <div class="row">
+        <div class="col-xs-10 col-md-6">
+
+            <table class="table table-hover table-bordered">
+                <tbody>
+                <tr>
+                    <th class="col-lg-3">Id</th>
+                    <td>{{ client.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ client.nom|capitalize }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ client.prenom|capitalize}}</td>
+                </tr>
+                <tr>
+                    <th>Société</th>
+                    <td>{{ client.societe|capitalize }}</td>
+                </tr>
+                <tr>
+                    <th>Code Postal</th>
+                    <td>{{ client.codePostal }}</td>
+                </tr>
+                <tr>
+                    <th>Ville</th>
+                    <td>{{ client.ville|capitalize }}</td>
+                </tr>
+                <tr>
+                    <th>N° de Portable</th>
+                    <td>{{ client.portable }}</td>
+                </tr>
+                <tr>
+                    <th>Date de naissance</th>
+                    <td>{{ client.dateNaissance|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{ client.email }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <a role="button" class="btn btn-default active" href={{ path("all_clt") }}>Liste Clients</a>
+
+        <a role="button" class="btn btn-default active"
+           href={{ path("edit_clt", { 'id': client.id }) }}>Modifier</a>
+    </div>
+
+    <div class="row">
+        {{ form_start(delete_form) }}
+        <input class="btn btn-danger active" type="submit" value="Supprimer">
+        {{ form_end(delete_form) }}
+    </div>
+{% endblock %}
+

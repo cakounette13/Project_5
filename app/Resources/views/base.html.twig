@@ -1,13 +1,46 @@
 <!DOCTYPE html>
+
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <title>{% block title %}Fidélité !{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+
+<body>
+{% block body %}
+    <div class="container-fluid">
+        <h1>Le fidélité récompensée !</h1>
+
+        <div class="row">
+            {{ render_flash_alerts() }}
+        </div>
+
+        <div class="row">
+            <a href={{ path("new_clt") }} role="button" class="btn btn-default btn-lg active">Nouveau</br> client</a>
+            <a href={{ path("all_clt") }} role="button" class="btn btn-default btn-lg active">Gestion</br> des
+                clients</a>
+        </div>
+
+        <div class="row">
+            <a href={{ path("new_vte") }} role="button" class="btn btn-default btn-lg active">Nouvelle</br> vente</a>
+            <a href={{ path("all_vte") }} role="button" class="btn btn-default btn-lg active">Gestion</br> carte de
+                fidélité</a>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('jquery/jquery.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+{% endblock %}
+</body>
 </html>

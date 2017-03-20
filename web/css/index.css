@@ -1,0 +1,92 @@
+body {
+    text-align: center;
+    -webkit-background-image: url("http://www.unesourisetmoi.info/data/medias/photos/134/changer-fond-ecran-windows_01.jpg");
+    background-image: url("http://www.unesourisetmoi.info/data/medias/photos/134/changer-fond-ecran-windows_01.jpg");
+    -moz-background-image: url("http://www.unesourisetmoi.info/data/medias/photos/134/changer-fond-ecran-windows_01.jpg");
+    -o-background-image: url("http://www.unesourisetmoi.info/data/medias/photos/134/changer-fond-ecran-windows_01.jpg");
+}
+
+.btn-lg {
+    font-size: 40px;
+    width: 300px;
+    margin: 50px;
+    text-align: center;
+}
+
+.btn-default {
+    margin: 20px;
+}
+
+.btn-default.active {
+    background-image: radial-gradient(white, #99CDD8);
+}
+
+.btn-default.active:hover {
+    background-image: radial-gradient(#99CDD8, white);
+}
+
+.btn-danger {
+    margin-top: 50px;
+    margin-left: 0px;
+}
+
+h1 {
+    font-size: 5em;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.help-block {
+    font-size: 0.7em;
+    color: red;
+    display: inline;
+}
+
+.radio {
+    display: inline-flex;
+    margin-right: 10px;
+
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+table {
+    background-color: aliceblue;
+}
+
+td {
+    text-align: left;
+}
+
+td:nth-child(1), td:nth-child(5), td:nth-child(6) , td:nth-child(7) {
+    text-align: center;
+}
+
+th {
+    padding: 10px;
+    text-align: center;
+}
+
+.well {
+    background: aliceblue;
+}
+
+input {
+    width: 100%;
+}
+
+#client_denomination {
+    display: flex;
+}
+
+@media all and (max-width: 500px) {
+    .btn-lg {
+        width: 100px;
+        font-size: 20px;
+    }
+}

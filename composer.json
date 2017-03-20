@@ -28,11 +28,15 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "~1.12||~2.0",
+        "twig/extensions": "1.2",
+        "twbs/bootstrap": "^3.3",
+        "ras/flash-alert-bundle": "^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "~3.2",
+        "doctrine/doctrine-fixtures-bundle": "^2.3"
     },
     "scripts": {
         "symfony-scripts": [
