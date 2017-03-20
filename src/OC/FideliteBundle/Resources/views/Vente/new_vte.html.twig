@@ -4,6 +4,11 @@
     Nouvelle Vente
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+{% endblock %}
+
 {% block body %}
     <h1>Nouvelle vente</h1>
 
@@ -25,8 +30,9 @@
                 <div class="form-group">
                     {{ form_label(form.dateVente, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
                     {{ form_errors(form.dateVente) }}
-                    <div class="col-sm-7">
-                        {{ form_widget(form.dateVente) }}
+                    <div class="col-sm-7 input-group date" id="datepicker">
+                        {{ form_widget(form.dateVente, {'attr': {'class': 'text-center form-control', 'name': 'datepicker'}}) }}
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                     </div>
                 </div>
 
@@ -55,8 +61,10 @@
     <div class="row">
         <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
     </div>
-
-
-
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ asset('js/index.js') }}"></script>
+{% endblock %}
