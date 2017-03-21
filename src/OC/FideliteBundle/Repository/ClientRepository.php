@@ -15,7 +15,7 @@ class ClientRepository extends \Doctrine\ORM\EntityRepository
     public function getAllClientsParOrdre($client)
     {
         $queryBuilder = $this->createQueryBuilder('a')
-            ->select('a.id','a.nom', 'a.prenom', 'a.societe', 'a.dateNaissance')
+            ->select('a.id','a.nom', 'a.prenom', 'a.societe', 'a.dateNaissance', 'a.email', 'a.portable')
             ->add('orderBy','a.nom ASC, a.prenom ASC, a.dateNaissance ASC')
         ;
 

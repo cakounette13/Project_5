@@ -67,10 +67,11 @@ class ClientType extends AbstractType
                 'label' => 'Date de Naissance',
                 'format' => 'dd/MM/yyyy',
                 'html5' => 'false',
-                'invalid_message' => 'La date saisie n\'est pas au bon format (ex:01/01/2050)',
+                'invalid_message' => 'La date saisie n\'est pas au bon format (01/01/2050)',
                 'widget' => 'single_text',
                 'attr' => array(
                     'placeholder' => 'Date de naissance ex:01/01/2050',
+                    'id'=> 'datepicker'
                 )
             ))
             ->add('email', EmailType::class, array(

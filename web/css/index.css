@@ -63,7 +63,7 @@ td {
     text-align: left;
 }
 
-td:nth-child(1), td:nth-child(5), td:nth-child(6) , td:nth-child(7) {
+td:nth-child(1), td:nth-child(5), td:nth-child(6) , td:nth-child(8),  td:nth-child(9){
     text-align: center;
 }
 
@@ -89,4 +89,14 @@ input {
         width: 100px;
         font-size: 20px;
     }
+}
+
+ul {
+    font-size: 11px;
+    text-align: right;
+    color: orangered;
+}
+
+#nouveau {
+    justify-content: flex-start;
 }

@@ -11,7 +11,7 @@ $(document).ready(function () {
             language: 'fr',
             weekStart: 1,
             autoclose: true,
-            format: 'dd/mm/yyyy',
+            format: 'dd-mm-yyyy',
             endDate: 'NOW',
             todayHighlight: true
         });

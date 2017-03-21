@@ -5,12 +5,16 @@ namespace OC\FideliteBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Client
  *
  * @ORM\Table(name="client")
  * @ORM\Entity(repositoryClass="OC\FideliteBundle\Repository\ClientRepository")
+ * @UniqueEntity("portable", message="Ce numero de portable existe déjà !")
+ * @UniqueEntity("email", message="Cet email existe déjà !")
+ * @UniqueEntity("societe", message="Cette société existe déjà !")
  */
 class Client
 {
@@ -46,7 +50,7 @@ class Client
 
     /**
      * @var string
-     * @ORM\Column(name="societe", type="string", length=255, nullable=true)
+     * @ORM\Column(name="societe", type="string", length=255, nullable=true, unique=true)
      */
     private $societe;
 
@@ -67,7 +71,7 @@ class Client
     /**
      * @var string
      * @Assert\Regex(pattern="/[0-9]{10}/", message="Votre n° de téléphone doit contenir 10 chiffres")
-     * @ORM\Column(name="portable", type="string", length=10)
+     * @ORM\Column(name="portable", type="string", length=10, unique=true)
      */
     private $portable;
 
@@ -81,7 +85,7 @@ class Client
     /**
      * @var string
      * @Assert\Email(message="Email invalide")
-     * @ORM\Column(name="email", type="string")
+     * @ORM\Column(name="email", type="string", unique=true)
      */
     private $email;
 
