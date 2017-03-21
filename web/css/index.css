@@ -63,8 +63,20 @@ td {
     text-align: left;
 }
 
-td:nth-child(1), td:nth-child(5), td:nth-child(6) , td:nth-child(8),  td:nth-child(9){
+.tableClient td:nth-child(1), td:nth-child(5), td:nth-child(6) , td:nth-child(8),  td:nth-child(9){
     text-align: center;
+}
+
+.tableVente td:nth-child(1), td:nth-child(4), td:nth-child(7) , td:nth-child(8){
+    text-align: center;
+}
+
+.tableVente td:nth-child(5), td:nth-child(6) {
+    text-align: right;
+}
+
+.tableVue th {
+    text-align: right;
 }
 
 th {
@@ -99,4 +111,9 @@ ul {
 
 #nouveau {
     justify-content: flex-start;
+}
+
+#datepicker {
+    padding-left: 15px;
+    padding-right: 15px;
 }

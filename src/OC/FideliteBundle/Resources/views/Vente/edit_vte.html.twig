@@ -1,26 +1,74 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Modification Vente
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+{% endblock %}
+
 {% block body %}
     <h1>Modification d'une vente</h1>
-
-    <div class="well">
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Modifier" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('all_vte') }}">Retour à la liste des ventes</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-    </div>
     <div class="row">
-        <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
+        <div class="col-xs-10 col-md-6">
+            <div class="well">
+                {{ form_start(edit_form, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_errors(edit_form) }}
+
+                <div class="form-group">
+                    {{ form_label(edit_form.client, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.client) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.client, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.dateVente, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.dateVente) }}
+                    <div class="col-sm-7 input-group date" id="datepicker">
+                        {{ form_widget(edit_form.dateVente, {'attr': {'class': 'text-center form-control', 'name': 'datepicker'}}) }}
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(edit_form.montantVente, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.montantVente) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.montantVente) }}
+                    </div>
+                </div>
+
+                {{ form_rest(edit_form) }}
+
+                <input type="submit" value="Modifer" class="btn btn-default btn-lg active">
+
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
     </div>
+
+    <div class="row">
+        <a role="button" class="btn btn-default active col-lg-2" href="{{ path('accueil') }}">Accueil</a>
+        <a role="button" class="btn btn-default active col-lg-2" href="{{ path('all_vte') }}">Retour liste des ventes</a>
+    </div>
+
+    <div class="row">
+        {{ form_start(delete_form) }}
+        <input type="submit" value="Supprimer" class="btn btn-danger active ">
+        {{ form_end(delete_form) }}
+    </div>
+
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ asset('js/index.js') }}"></script>
+{% endblock %}
+

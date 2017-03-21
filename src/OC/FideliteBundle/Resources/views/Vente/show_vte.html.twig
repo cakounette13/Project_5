@@ -3,15 +3,25 @@
 {% block body %}
     <h1>Vente</h1>
 
-    <table>
+<div class="row">
+    <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
+        <table class="table tableVue table-hover table-bordered">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ vente.id }}</td>
+                <th class="col-xs-4 col-sm-4 col-md-6 col-lg-6">Id</th>
+                <td class="col-xs-8 col-sm-8 col-md-6 col-lg-6">{{ vente.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom Client</th>
+                <td>{{ vente.client.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prénom Client</th>
+                <td>{{ vente.client.prenom }}</td>
             </tr>
             <tr>
                 <th>Date de la vente</th>
-                <td>{% if vente.dateVente %}{{ vente.dateVente|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if vente.dateVente %}{{ vente.dateVente|date('d/m/Y') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Montant de la vente</th>
@@ -21,27 +31,24 @@
                 <th>Points de fidélité</th>
                 <td>{{ vente.pointFidelite }}</td>
             </tr>
-            <tr>
-                <th>Réf Client</th>
-                <td>{{ vente.client.nom }}</td>
-                <td>{{ vente.client.prenom }}</td>
-            </tr>
+
         </tbody>
     </table>
+    </div>
+</div>
+    <div class="row">
+        <a role="button" class="btn btn-default active" href={{ path("all_vte") }}>Retour à la liste des ventes</a>
 
-    <ul>
-        <li>
-            <a href="{{ path('all_vte') }}">Retour à la liste</a>
-        </li>
-        <li>
-            <a href="{{ path('edit_vte', { 'id': vente.id }) }}">Modifier</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <a role="button" class="btn btn-default active"
+           href={{ path("edit_vte", { 'id': vente.id }) }}>Modifier</a>
+    </div>
+
+    <div class="row">
+        {{ form_start(delete_form) }}
+        <input class="btn btn-danger active" type="submit" value="Supprimer">
+        {{ form_end(delete_form) }}
+    </div>
+
     <div class="row">
         <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
     </div>

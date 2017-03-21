@@ -49,6 +49,8 @@ class Vente
      */
     private $pointFidelite;
 
+
+
         /**
      * Get id
      *

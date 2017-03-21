@@ -6,7 +6,6 @@ use OC\FideliteBundle\Repository\ClientRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,7 +20,7 @@ class VenteType extends AbstractType
         $builder
             ->add('dateVente', DateTimeType::class, array(
                 'label' => 'Date de la vente',
-                'format' => 'dd/MM/yyyy',
+                'format' => 'dd-MM-yyyy',
                 'html5' => 'false',
                 'invalid_message' => 'La date saisie n\'est pas au bon format (ex:01/01/2050)',
                 'widget' => 'single_text',
@@ -39,7 +38,7 @@ class VenteType extends AbstractType
                     },
                 "choice_label" => function ($client, $nom)
                 {
-                    return $client->getNom() . " " . $client->getPrenom();
+                    return "- ". $client->getNom() . " " . $client->getPrenom() . " - " . $client->getSociete();
                 },
             ])
             ->add('montantVente', NumberType::class, array(

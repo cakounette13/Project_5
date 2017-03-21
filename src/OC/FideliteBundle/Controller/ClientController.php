@@ -131,7 +131,7 @@ class ClientController extends Controller
             $em->flush($client);
         }
 
-        $this->get('ras_flash_alert.alert_reporter')->addSuccess("Fiche Client supprimée !");
+        $this->get('ras_flash_alert.alert_reporter')->addError("Fiche Client supprimée !");
 
         return $this->redirectToRoute('all_clt');
     }

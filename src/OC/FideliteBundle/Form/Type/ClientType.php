@@ -65,7 +65,7 @@ class ClientType extends AbstractType
             ))
             ->add('dateNaissance', DateType::class, array(
                 'label' => 'Date de Naissance',
-                'format' => 'dd/MM/yyyy',
+                'format' => 'dd/mm/yyyy',
                 'html5' => 'false',
                 'invalid_message' => 'La date saisie n\'est pas au bon format (01/01/2050)',
                 'widget' => 'single_text',

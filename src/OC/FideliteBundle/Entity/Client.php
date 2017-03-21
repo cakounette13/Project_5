@@ -94,6 +94,12 @@ class Client
      */
     private $ventes;
 
+    /**
+     * @var int
+     * @ORM\Column(name="nbr_ventes", type="integer")
+     */
+    private $nbrVentes = 0;
+
 
     /**
      * Get id
@@ -322,7 +328,7 @@ class Client
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getVentes()
     {
@@ -334,12 +340,28 @@ class Client
         $this->ventes = new ArrayCollection();
     }
 
+    /**
+     * @param Vente $vente
+     */
     public function addVente(Vente $vente)
     {
+        $this->ventes[]= $vente;
         $vente->setClient($this);
-        if (!$this->ventes->contains($vente)) {
-            $this->ventes->add($vente);
-        }
+    }
+
+    /**
+     * @param Vente $vente
+     */
+    public function removeVente(Vente $vente) {
+        $this->ventes->removeElement($vente);
+    }
+
+    public function ajouteNbrVente() {
+        $this->nbrVentes++;
+    }
+
+    public function deduitNbrVente() {
+        $this->nbrVentes--;
     }
 
 }

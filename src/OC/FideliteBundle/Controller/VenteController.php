@@ -45,7 +45,6 @@ class VenteController extends Controller
         $form = $this->createForm('OC\FideliteBundle\Form\Type\VenteType', $vente);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($vente);
@@ -93,7 +92,8 @@ class VenteController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('edit_vte', array('id' => $vente->getId()));
+            $this->get('ras_flash_alert.alert_reporter')->addSuccess("Vente modifiée !");
+            return $this->redirectToRoute('all_vte', array('id' => $vente->getId()));
         }
 
         return $this->render('OCFideliteBundle:Vente:edit_vte.html.twig', array(
@@ -119,6 +119,8 @@ class VenteController extends Controller
             $em->remove($vente);
             $em->flush($vente);
         }
+
+        $this->get('ras_flash_alert.alert_reporter')->addError("Vente supprimée !");
 
         return $this->redirectToRoute('accueil');
     }

@@ -13,10 +13,13 @@ use Doctrine\ORM\NoResultException;
  */
 class VenteRepository extends EntityRepository
 {
-    public function getNbrVentesRestantes()
+    public function getNbrVentesRestantes($vente)
     {
         $queryBuilder = $this->createQueryBuilder('a')
-
+            ->select('a.id', 'COUNT(a.client_id) as nbr')
+            ->innerJoin('a.client', 'clt')
+            ->addSelect('clt')
+            ->where('$clientId = a.client_id = ?')
         ;
 
         try {
@@ -26,9 +29,7 @@ class VenteRepository extends EntityRepository
         }   catch (NoResultException $e) {
             $query = 0;
         }
-
-
-
         return $query;
     }
+
 }

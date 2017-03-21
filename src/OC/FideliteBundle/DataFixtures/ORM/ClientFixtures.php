@@ -39,8 +39,8 @@ class ClientFixtures implements FixtureInterface
         $client3->setDateNaissance(\DateTime::createFromFormat('d/m/Y','06/05/1971'));
         $client3->setCodePostal('13013');
         $client3->setVille('Marseille');
-        $client3->setPortable('0663704309');
-        $client3->setEmail('didierdelrieux@gmail.com');
+        $client3->setPortable('0663704307');
+        $client3->setEmail('didierdelrieux@free.fr');
 
         $manager->persist($client);
         $manager->persist($client2);

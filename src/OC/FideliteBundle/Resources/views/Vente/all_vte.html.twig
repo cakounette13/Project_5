@@ -15,13 +15,18 @@
             {{ render_flash_alerts() }}
         </div>
 
+        <div id="nouveau" class="row">
+            <a role="button" class="btn btn-default active" href={{ path("new_vte") }}>Nouvelle vente</a>
+        </div>
+
         <div class="row">
-            <table class="table table-hover table-bordered">
+            <table class="table tableVente table-hover table-bordered">
                 <thead>
                 <tr>
                     <th>Voir</th>
                     <th>Nom</th>
                     <th>Prénom</th>
+                    <th>Date vente</th>
                     <th>Montant ventes</th>
                     <th>Points de Fidelité</th>
                     <th>Modifier</th>
@@ -37,6 +42,7 @@
                             </a></td>
                         <td>{{ vente.client.nom|capitalize }}</td>
                         <td>{{ vente.client.prenom|capitalize }}</td>
+                        <td>{{ vente.dateVente|date("d/m/Y") }}</td>
                         <td>{{ vente.montantVente|number_format(2, '.', ',') }}</td>
                         <td>{{ vente.pointFidelite |number_format(2, '.', ',')}}</td>
                         <td><a href={{ path('edit_vte', { 'id': vente.id }) }}>
@@ -47,13 +53,6 @@
                             </a></td>
                     </tr>
                 {% endfor %}
-                <tr>
-                    <td>Totaux</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
 
             </table>
