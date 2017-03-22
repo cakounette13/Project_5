@@ -151,4 +151,16 @@ class ClientController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * View a client entity and his fidelity points
+     *
+     * @Route("/gestion", name="gestion_clt")
+     * @Method({"GET", "POST"})
+     */
+    public function gestionAction() {
+
+        return $this->render('gestion_client.html.twig');
+
+    }
 }

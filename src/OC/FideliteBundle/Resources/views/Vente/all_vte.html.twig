@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Gestion des cartes de fidélité
+    Gestion des ventes
 {% endblock %}
 
 {% block body %}
@@ -26,6 +26,7 @@
                     <th>Voir</th>
                     <th>Nom</th>
                     <th>Prénom</th>
+                    <th>Société</th>
                     <th>Date vente</th>
                     <th>Montant ventes</th>
                     <th>Points de Fidelité</th>
@@ -42,6 +43,7 @@
                             </a></td>
                         <td>{{ vente.client.nom|capitalize }}</td>
                         <td>{{ vente.client.prenom|capitalize }}</td>
+                        <td>{{ vente.client.societe }}</td>
                         <td>{{ vente.dateVente|date("d/m/Y") }}</td>
                         <td>{{ vente.montantVente|number_format(2, '.', ',') }}</td>
                         <td>{{ vente.pointFidelite |number_format(2, '.', ',')}}</td>
