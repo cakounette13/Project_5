@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Carte de fidélité client
+{% endblock %}
+
+{% block body %}
+    <h1>Choisir un client dans la liste</h1>
+
+    <div class="row">
+        <div class="col-xs-10 col-sm-9 col-md-8 col-lg-7">
+            <div class="well">
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+                {{ form_errors(form) }}
+
+                <div class="form-group">
+                    {{ form_label(form.id, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(form.id) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(form.id, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+
+                <input type="submit" value="Valider" class="btn btn-default btn-lg active">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
+    </div>
+{% endblock %}

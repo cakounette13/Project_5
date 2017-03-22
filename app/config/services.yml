@@ -9,3 +9,7 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     oc_fidelite.points_fidelite:
         class: OC\FideliteBundle\Services\PointsFidelite
+
+    oc_fidelite.vente_manager:
+        class: OC\FideliteBundle\Manager\VenteManager
+        arguments: ["@doctrine.orm.default_entity_manager", "@service_container"]

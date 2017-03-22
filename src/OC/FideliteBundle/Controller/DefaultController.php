@@ -2,16 +2,18 @@
 
 namespace OC\FideliteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
+
     /**
-     * @Route("/")
+     * @Route("/", name="accueil")
+     *
      */
     public function indexAction()
     {
-        return $this->render('OCFideliteBundle:Default:index.html.twig');
+        return $this->render('base.html.twig');
     }
 }
+

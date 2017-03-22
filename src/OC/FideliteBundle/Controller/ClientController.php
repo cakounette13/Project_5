@@ -11,19 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Client controller.
  *
- * @Route("/")
+ * @Route("/client")
  */
 class ClientController extends Controller
 {
-    /**
-     * @Route("/", name="accueil")
-     *
-     */
-    public function indexAction()
-    {
-        return $this->render('base.html.twig');
-    }
-
     /**
      * Lists all client entities.
      *
@@ -153,14 +144,27 @@ class ClientController extends Controller
     }
 
     /**
-     * View a client entity and his fidelity points
-     *
-     * @Route("/gestion", name="gestion_clt")
+     * @Route("/recap/all", name="recap_clt")
      * @Method({"GET", "POST"})
      */
-    public function gestionAction() {
+    public function recapAction(Request $request) {
 
-        return $this->render('gestion_client.html.twig');
+        $client = new Client();
+        $form = $this->createForm('OC\FideliteBundle\Form\Type\ClientSearchType', $client);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $this->get('ras_flash_alert.alert_reporter')->addSuccess("Nouveau Client créé !");
+
+            return $this->redirectToRoute('accueil', array(
+                'id' => $client->getId()));
+        }
+
+        return $this->render('OCFideliteBundle:Client:recap_client.html.twig', array(
+            'client' => $client,
+            'form' => $form->createView()
+        ));
     }
 }
