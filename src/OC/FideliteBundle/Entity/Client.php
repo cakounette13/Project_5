@@ -102,6 +102,13 @@ class Client
 
 
     /**
+     * @var float
+     * @ORM\Column(name="points_fidelite", type="float", scale=2, nullable=true)
+     */
+    private $pointsFidelite = 0;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -362,6 +369,21 @@ class Client
 
     public function deduitNbrVente() {
         $this->nbrVentes--;
+    }
+    /**
+     * @return float
+     */
+    public function getPointsFidelite()
+    {
+        return $this->pointsFidelite;
+    }
+
+    /**
+     * @param float $pointsFidelite
+     */
+    public function setPointsFidelite($pointsFidelite)
+    {
+        $this->pointsFidelite = $pointsFidelite;
     }
 
 }

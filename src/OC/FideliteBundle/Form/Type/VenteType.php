@@ -44,6 +44,9 @@ class VenteType extends AbstractType
             ->add('montantVente', NumberType::class, array(
                 'label' => 'Montant TTC',
             ))
+            ->add('pointsFideliteUtilises', NumberType::class, [
+                'label' => 'Points de fidélité utilisés'
+                ])
         ;
     }
     

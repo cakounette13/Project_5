@@ -6,8 +6,17 @@ use OC\FideliteBundle\Entity\Vente;
 
 class PointsFidelite
 {
-    public function calculPointsFidelite(Vente $vente) {
-        $points = $vente->getPointFidelite();
+    public function calculCumulPointsFidelite(Vente $vente) {
+        $pointsDepart = $vente->getClient()->getPointsFidelite();
+        $montant = $vente->getMontantVente();
+        $pointsNouveau = $montant * 6/100;
+        $pointsDeduits = $vente->getPointsFideliteUtilises();
+        $points = $pointsDepart + $pointsNouveau - $pointsDeduits;
+        return $points;
+    }
+
+    public function calculPointsFideliteParVente(Vente $vente) {
+        $points = $vente->getClient()->getPointsFidelite();
         $montant = $vente->getMontantVente();
         $points = $montant * 6/100;
         return $points;

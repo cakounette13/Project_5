@@ -67,11 +67,11 @@ td {
     text-align: center;
 }
 
-.tableVente td:nth-child(1), td:nth-child(5), td:nth-child(8) , td:nth-child(9){
+.tableVente td:nth-child(1), td:nth-child(5), td:nth-child(7) , td:nth-child(8){
     text-align: center;
 }
 
-.tableVente td:nth-child(6), td:nth-child(7) {
+.tableVente td:nth-child(6) {
     text-align: right;
 }
 

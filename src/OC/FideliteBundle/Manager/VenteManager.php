@@ -4,6 +4,7 @@ namespace OC\FideliteBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Vente;
+use OC\FideliteBundle\Form\Type\ClientType;
 use OC\FideliteBundle\Form\Type\VenteType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
@@ -57,15 +58,18 @@ class VenteManager
         $request = $this->request->getCurrentRequest();
 
         $vente = new Vente();
-
         $form = $this->form->create(VenteType::class, $vente);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($vente);
-            $points = $this->container->get('oc_fidelite.points_fidelite')->calculPointsFidelite($vente);
-            $vente->setPointFidelite($points);
+            $pointsVente = $this->container->get('oc_fidelite.points_fidelite')->calculPointsFideliteParVente($vente);
+            $points = $this->container->get('oc_fidelite.points_fidelite')->calculCumulPointsFidelite($vente);
+            $client = $vente->getClient()->setPointsFidelite($points);
+            $client = $vente->getClient()->ajouteNbrVente();
+            $vente = $vente->setPointFideliteVente($pointsVente);
             $this->em->flush($vente);
+            $this->em->flush($client);
         }
         return $form;
     }

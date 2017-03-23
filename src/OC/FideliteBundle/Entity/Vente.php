@@ -45,13 +45,19 @@ class Vente
     /**
      * @var float
      *
-     * @ORM\Column(name="pointFidelite", type="float", scale=2)
+     * @ORM\Column(name="pointFideliteVente", type="float", scale=2)
      */
-    private $pointFidelite;
+    private $pointFideliteVente;
+
+    /**
+     * @var float
+     * @ORM\Column(name="pointsFideliteUtilises", type="float", scale=2, nullable=true)
+     */
+
+    private $pointsFideliteUtilises = 0;
 
 
-
-        /**
+    /**
      * Get id
      *
      * @return int
@@ -137,17 +143,33 @@ class Vente
     /**
      * @return float
      */
-    public function getPointFidelite()
+    public function getPointFideliteVente()
     {
-        return $this->pointFidelite;
+        return $this->pointFideliteVente;
     }
 
     /**
      * @param float $pointFidelite
      */
-    public function setPointFidelite($pointFidelite)
+    public function setPointFideliteVente($pointFideliteVente)
     {
-        $this->pointFidelite = $pointFidelite;
+        $this->pointFideliteVente = $pointFideliteVente;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPointsFideliteUtilises()
+    {
+        return $this->pointsFideliteUtilises;
+    }
+
+    /**
+     * @param float $pointsFideliteUtilises
+     */
+    public function setPointsFideliteUtilises($pointsFideliteUtilises)
+    {
+        $this->pointsFideliteUtilises = $pointsFideliteUtilises;
     }
 
 }

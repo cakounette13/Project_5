@@ -46,7 +46,7 @@
                         <td>{{ vente.client.societe }}</td>
                         <td>{{ vente.dateVente|date("d/m/Y") }}</td>
                         <td>{{ vente.montantVente|number_format(2, '.', ',') }}</td>
-                        <td>{{ vente.pointFidelite |number_format(2, '.', ',')}}</td>
+                        <td>{{ vente.pointFideliteVente |number_format(2, '.', ',')}}</td>
                         <td><a href={{ path('edit_vte', { 'id': vente.id }) }}>
                                 <image src={{ asset('images/glyphicons/png/glyphicons-151-edit.png') }} alt="modifier"></image>
                             </a></td>
