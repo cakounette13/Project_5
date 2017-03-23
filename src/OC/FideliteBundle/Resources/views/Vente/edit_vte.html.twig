@@ -58,9 +58,7 @@
     </div>
 
     <div class="row">
-        {{ form_start(delete_form) }}
-        <input type="submit" value="Supprimer" class="btn btn-danger active ">
-        {{ form_end(delete_form) }}
+        <a role="button" href="{{ path('delete_vte', {'id': vente.id}) }}" class="btn btn-danger active ">Supprimer</a>
     </div>
 
 {% endblock %}

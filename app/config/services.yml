@@ -12,4 +12,17 @@ services:
 
     oc_fidelite.vente_manager:
         class: OC\FideliteBundle\Manager\VenteManager
-        arguments: ["@doctrine.orm.default_entity_manager", "@service_container"]
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - "@service_container"
+            - "@form.factory"
+            - "@request_stack"
+
+    oc_fidelite.client_manager:
+            class: OC\FideliteBundle\Manager\ClientManager
+            arguments:
+                - "@doctrine.orm.default_entity_manager"
+                - "@service_container"
+                - "@form.factory"
+                - "@request_stack"
+

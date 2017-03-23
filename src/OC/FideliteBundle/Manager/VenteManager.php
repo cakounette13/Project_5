@@ -4,23 +4,47 @@ namespace OC\FideliteBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Vente;
+use OC\FideliteBundle\Form\Type\VenteType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class VenteManager
 {
-    protected $container;
-
-    protected $em;
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
 
     /**
-     * Initialisation de la connexion à la base de donnée
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
+     * @var FormFactory
+     */
+    private $form;
+
+    /**
+     * @var RequestStack
+     */
+    private $request;
+
+    /**
+     * VenteManager constructor.
      * @param EntityManager $em
      * @param ContainerInterface $container
+     * @param FormFactory $form
+     * @param RequestStack $request
      */
-    public function __construct(EntityManager $em, ContainerInterface $container)
+    public function __construct(EntityManager $em, ContainerInterface $container, FormFactory $form, RequestStack $request)
     {
         $this->em = $em;
         $this->container = $container;
+        $this->form = $form;
+        $this->request = $request;
     }
 
     /**
@@ -29,13 +53,21 @@ class VenteManager
      * @param Vente $vente
      *
      */
-    public function addVente(Vente $vente) {
-//        $em = $this->em->getDoctrine()->getManager();
-        $this->em->persist($vente);
-        $points = $this->container->get('oc_fidelite.points_fidelite')->calculPointsFidelite($vente);
-        $vente->setPointFidelite($points);
-        $this->em->flush($vente);
-        return $vente;
+    public function add() {
+        $request = $this->request->getCurrentRequest();
+
+        $vente = new Vente();
+
+        $form = $this->form->create(VenteType::class, $vente);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($vente);
+            $points = $this->container->get('oc_fidelite.points_fidelite')->calculPointsFidelite($vente);
+            $vente->setPointFidelite($points);
+            $this->em->flush($vente);
+        }
+        return $form;
     }
 
     /**
@@ -44,16 +76,17 @@ class VenteManager
      * @param $id
      */
     public function read($id) {
-        return $this->em->getRepository()->findOneBy(array('id' => $id));
+        return $this->em->getRepository('OCFideliteBundle:Vente')->findOneBy(array('id' => $id));
     }
 
     /**
      * Récupère toutes les ventes de la base de donnée
      *
-     * @param $id
      */
     public function readAll() {
+        $ventes = $this->em->getRepository('OCFideliteBundle:Vente')->findAll();
 
+        return $ventes;
     }
 
 
@@ -63,7 +96,15 @@ class VenteManager
      * @param Vente $vente
      */
     public function update(Vente $vente) {
+        $request = $this->request->getCurrentRequest();
 
+        $editForm = $this->form->create(VenteType::class, $vente);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->em->flush($vente);
+        }
+        return $editForm;
     }
 
     /**
@@ -72,6 +113,7 @@ class VenteManager
     * @param Vente $vente
     */
     public function delete(Vente $vente) {
-
+        $this->em->remove($vente);
+        $this->em->flush($vente);
     }
 }

@@ -24,9 +24,7 @@ class VenteController extends Controller
      */
     public function allAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $ventes = $em->getRepository('OCFideliteBundle:Vente')->findAll();
+        $ventes = $this->get('oc_fidelite.vente_manager')->readAll();
 
         return $this->render('OCFideliteBundle:Vente:all_vte.html.twig', array(
             'ventes' => $ventes,
@@ -39,20 +37,17 @@ class VenteController extends Controller
      * @Route("/new", name="new_vte")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
-    {
-        $vente = new Vente();
-        $form = $this->createForm('OC\FideliteBundle\Form\Type\VenteType', $vente);
-        $form->handleRequest($request);
+    public function newAction(Request $request) {
+
+        $form = $this->get('oc_fidelite.vente_manager')->add();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('oc_fidelite.vente_manager')->addVente($vente);
-            return $this->redirectToRoute('show_vte', array('id' => $vente->getId()));
+            $this->get('ras_flash_alert.alert_reporter')->addSuccess("Vente enregistrée !");
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->render('OCFideliteBundle:Vente:new_vte.html.twig', array(
-            'vente' => $vente,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ));
     }
 
@@ -64,11 +59,10 @@ class VenteController extends Controller
      */
     public function showAction(Vente $vente)
     {
-        $deleteForm = $this->createDeleteForm($vente);
+        $vente = $this->get('oc_fidelite.vente_manager')->read($vente);
 
         return $this->render('OCFideliteBundle:Vente:show_vte.html.twig', array(
             'vente' => $vente,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -80,13 +74,9 @@ class VenteController extends Controller
      */
     public function editAction(Request $request, Vente $vente)
     {
-        $deleteForm = $this->createDeleteForm($vente);
-        $editForm = $this->createForm('OC\FideliteBundle\Form\Type\VenteType', $vente);
-        $editForm->handleRequest($request);
+        $editForm = $this->get('oc_fidelite.vente_manager')->update($vente);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
             $this->get('ras_flash_alert.alert_reporter')->addSuccess("Vente modifiée !");
             return $this->redirectToRoute('all_vte', array('id' => $vente->getId()));
         }
@@ -94,45 +84,20 @@ class VenteController extends Controller
         return $this->render('OCFideliteBundle:Vente:edit_vte.html.twig', array(
             'vente' => $vente,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Deletes a vente entity.
      *
-     * @Route("/{id}", name="delete_vte")
-     * @Method("DELETE")
+     * @Route("/suppr/{id}", name="delete_vte")
      */
     public function deleteAction(Request $request, Vente $vente)
     {
-        $form = $this->createDeleteForm($vente);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($vente);
-            $em->flush($vente);
-        }
-
+        $this->get('oc_fidelite.vente_manager')->delete($vente);
         $this->get('ras_flash_alert.alert_reporter')->addError("Vente supprimée !");
 
         return $this->redirectToRoute('accueil');
     }
 
-    /**
-     * Creates a form to delete a vente entity.
-     *
-     * @param Vente $vente The vente entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Vente $vente)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('delete_vte', array('id' => $vente->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
 }
