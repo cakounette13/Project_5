@@ -23,11 +23,7 @@ class ClientController extends Controller
      */
     public function allAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $client = $em->getRepository('OCFideliteBundle:Client')->findAll();
-        $clients = $em->getRepository('OCFideliteBundle:Client')->getAllClientsParOrdre($client);
-
+        $clients = $this->get('oc_fidelite.client_manager')->readAll();
         return $this->render('OCFideliteBundle:Client:all_clt.html.twig', array(
             'clients' => $clients,
         ));
@@ -41,24 +37,14 @@ class ClientController extends Controller
      */
     public function newAction(Request $request)
     {
-        $client = new Client();
-        $form = $this->createForm('OC\FideliteBundle\Form\Type\ClientType', $client);
-        $form->handleRequest($request);
+        $form = $this->get('oc_fidelite.client_manager')->add();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($client);
-            $em->flush($client);
-
             $this->get('ras_flash_alert.alert_reporter')->addSuccess("Nouveau Client créé !");
-
-            return $this->redirectToRoute('accueil', array(
-                'id' => $client->getId()));
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->render('OCFideliteBundle:Client:new_clt.html.twig', array(
-            'client' => $client,
             'form' => $form->createView(),
         ));
     }
@@ -71,11 +57,9 @@ class ClientController extends Controller
      */
     public function showAction(Client $client)
     {
-        $deleteForm = $this->createDeleteForm($client);
-
+        $client = $this->get('oc_fidelite.client_manager')->read($client);
         return $this->render('OCFideliteBundle:Client:show_clt.html.twig', array(
             'client' => $client,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -87,13 +71,9 @@ class ClientController extends Controller
      */
     public function editAction(Request $request, Client $client)
     {
-        $deleteForm = $this->createDeleteForm($client);
-        $editForm = $this->createForm('OC\FideliteBundle\Form\Type\ClientType', $client);
-        $editForm->handleRequest($request);
+        $editForm = $this->get('oc_fidelite.client_manager')->update($client);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
             $this->get('ras_flash_alert.alert_reporter')->addSuccess("Fiche Client modifiée !");
             return $this->redirectToRoute('all_clt', array('id' => $client->getId()));
         }
@@ -101,46 +81,20 @@ class ClientController extends Controller
         return $this->render('OCFideliteBundle:Client:edit_clt.html.twig', array(
             'client' => $client,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Deletes a client entity.
      *
-     * @Route("/{id}", name="delete_clt")
-     * @Method("DELETE")
+     * @Route("/suppr/{id}", name="delete_clt")
      */
     public function deleteAction(Request $request, Client $client)
     {
-        $form = $this->createDeleteForm($client);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($client);
-            $em->flush($client);
-        }
-
+        $this->get('oc_fidelite.client_manager')->delete($client);
         $this->get('ras_flash_alert.alert_reporter')->addError("Fiche Client supprimée !");
 
         return $this->redirectToRoute('all_clt');
-    }
-
-    /**
-     * Creates a form to delete a client entity.
-     *
-     * @param Client $client The client entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Client $client)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('delete_clt', array('id' => $client->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 
     /**
