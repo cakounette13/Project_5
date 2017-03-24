@@ -96,9 +96,9 @@ class Client
 
     /**
      * @var int
-     * @ORM\Column(name="nbr_ventes", type="integer")
+     * @ORM\Column(name="nbr_ventes", type="integer", nullable=true)
      */
-    private $nbrVentes = 0;
+    private $nbrVentes;
 
 
     /**
@@ -116,6 +116,14 @@ class Client
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -363,11 +371,11 @@ class Client
         $this->ventes->removeElement($vente);
     }
 
-    public function ajouteNbrVente() {
+    public function ajouteNbrVentes() {
         $this->nbrVentes++;
     }
 
-    public function deduitNbrVente() {
+    public function deduitNbrVentes() {
         $this->nbrVentes--;
     }
     /**

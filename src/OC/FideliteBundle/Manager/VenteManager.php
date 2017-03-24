@@ -66,7 +66,7 @@ class VenteManager
             $pointsVente = $this->container->get('oc_fidelite.points_fidelite')->calculPointsFideliteParVente($vente);
             $points = $this->container->get('oc_fidelite.points_fidelite')->calculCumulPointsFidelite($vente);
             $client = $vente->getClient()->setPointsFidelite($points);
-            $client = $vente->getClient()->ajouteNbrVente();
+            $client = $vente->getClient()->ajouteNbrVentes();
             $vente = $vente->setPointFideliteVente($pointsVente);
             $this->em->flush($vente);
             $this->em->flush($client);
@@ -117,7 +117,10 @@ class VenteManager
     * @param Vente $vente
     */
     public function delete(Vente $vente) {
+        $nbrVentes = $vente->getClient()->deduitNbrVentes();
+//        $points = $vente->deduitPointsFideliteVente();
         $this->em->remove($vente);
         $this->em->flush($vente);
+        $this->em->flush($nbrVentes);
     }
 }

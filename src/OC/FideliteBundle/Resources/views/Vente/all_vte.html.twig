@@ -30,6 +30,7 @@
                     <th>Date vente</th>
                     <th>Montant ventes</th>
                     <th>Points de Fidelité</th>
+                    <th>Points utilisés</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
@@ -47,6 +48,7 @@
                         <td>{{ vente.dateVente|date("d/m/Y") }}</td>
                         <td>{{ vente.montantVente|number_format(2, '.', ',') }}</td>
                         <td>{{ vente.pointFideliteVente |number_format(2, '.', ',')}}</td>
+                        <td>{{ vente.pointsFideliteUtilises }}</td>
                         <td><a href={{ path('edit_vte', { 'id': vente.id }) }}>
                                 <image src={{ asset('images/glyphicons/png/glyphicons-151-edit.png') }} alt="modifier"></image>
                             </a></td>

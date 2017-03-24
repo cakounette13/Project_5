@@ -98,27 +98,36 @@ class ClientController extends Controller
     }
 
     /**
-     * @Route("/recap/all", name="recap_clt")
+     * @Route("/recap/all/", name="recap_clt")
      * @Method({"GET", "POST"})
      */
     public function recapAction(Request $request) {
 
-        $client = new Client();
-        $form = $this->createForm('OC\FideliteBundle\Form\Type\ClientSearchType', $client);
-        $form->handleRequest($request);
+        $form = $this->get('oc_fidelite.client_manager')->recap();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $this->get('ras_flash_alert.alert_reporter')->addSuccess("Nouveau Client créé !");
-
-            return $this->redirectToRoute('accueil', array(
-                'id' => $client->getId()));
+            $id = $form["form"]->getData()->getId();
+            return $this->redirectToRoute('recap_clt_detail', array(
+                'id' => $id
+            ));
         }
-
         return $this->render('OCFideliteBundle:Client:recap_client.html.twig', array(
-            'client' => $client,
             'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/recap/all/detail/{id}", name="recap_clt_detail")
+     * @Method({"GET"})
+     */
+    public function recapDetailAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('OCFideliteBundle:Client')->find($id);
+        $ventes = $em->getRepository('OCFideliteBundle:Vente')->findBy(array('client' => $client));
+        return $this->render('OCFideliteBundle:Client:recap_client_detail.html.twig', array(
+            'client' => $client,
+            'ventes' => $ventes
+
         ));
     }
 }

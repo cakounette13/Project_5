@@ -19,7 +19,7 @@ class ClientSearchType extends AbstractType
         $builder
             ->add('id',  EntityType::class, [
                 'class' => 'OC\FideliteBundle\Entity\Client',
-                'label' => 'Nom du client',
+                'label' => 'Choix du client',
                 'query_builder' =>
                     function (ClientRepository $er) {
                         return $er->createQueryBuilder( 't' )
@@ -42,4 +42,9 @@ class ClientSearchType extends AbstractType
         ));
     }
 
+    public function getName()
+    {
+        return 'oc_fidelitebundle_clientsearchtype';
+    }
 }
+

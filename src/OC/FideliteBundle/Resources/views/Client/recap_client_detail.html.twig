@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Gestion des clients
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Récapitulatif Fidélité du Client</h1>
+        </div>
+
+        <div class="row">
+            <h2>- {{ client.nom }} {{ client.prenom }} - {{ client.societe }}</h2>
+        </div>
+        <div class="row">
+            <table class="table tableDetailClient table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Montant TTC</th>
+                    <th>Points de fidélité</th>
+                    <th>points utilisés</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for vente in ventes %}
+                    <tr>
+                        <td>{{ vente.dateVente|date("d/m/Y") }}</td>
+                        <td>{{ vente.montantvente }}</td>
+                        <td>{{ vente.pointFideliteVente }}</td>
+                        <td>{{ vente.pointsFideliteUtilises }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <p><strong>Points disponibles à ce jour : {{ client.pointsFidelite }}</strong></p>
+        </div>
+
+        <div class="row">
+            <p>Nombres de ventes avant utilisation des points : {{ client.nbrVentes }}</p>
+        </div>
+
+        <div class="row">
+            <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
+        </div>
+    </div>
+{% endblock %}

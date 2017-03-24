@@ -90,4 +90,12 @@ class ClientManager {
         $this->em->remove($client);
         $this->em->flush($client);
     }
+
+    public function recap() {
+        $request = $this->request->getCurrentRequest();
+        $client = new Client();
+        $form = $this->form->create('OC\FideliteBundle\Form\Type\ClientSearchType', $client);
+        $form->handleRequest($request);
+        return $form;
+    }
 }

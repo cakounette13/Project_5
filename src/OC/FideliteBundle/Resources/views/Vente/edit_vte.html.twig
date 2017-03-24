@@ -43,6 +43,13 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    {{ form_label(edit_form.pointsFideliteUtilises, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                    {{ form_errors(edit_form.pointsFideliteUtilises) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(edit_form.pointsFideliteUtilises, {'attr': {'class': 'text-center form-control'} }) }}
+                    </div>
+                </div>
                 {{ form_rest(edit_form) }}
 
                 <input type="submit" value="Modifer" class="btn btn-default btn-lg active">
