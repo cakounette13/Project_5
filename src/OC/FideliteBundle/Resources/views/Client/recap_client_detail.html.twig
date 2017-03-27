@@ -39,12 +39,12 @@
         </div>
 
         <div class="row">
-            <p><strong>Points disponibles à ce jour : {{ client.pointsFidelite }}</strong></p>
+            <h2>Points disponibles à ce jour : {{ client.pointsFidelite }}</h2>
         </div>
 
-        <div class="row">
-            <p>Nombres de ventes avant utilisation des points : {{ client.nbrVentes }}</p>
-        </div>
+        {#<div class="row">#}
+            {#<p>Nombres de ventes avant utilisation des points : {{ client.nbrVentes }}</p>#}
+        {#</div>#}
 
         <div class="row">
             <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>

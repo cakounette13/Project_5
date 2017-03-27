@@ -6,6 +6,7 @@ use OC\FideliteBundle\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -103,10 +104,13 @@ class ClientController extends Controller
      */
     public function recapAction(Request $request) {
 
-        $form = $this->get('oc_fidelite.client_manager')->recap();
+        $clients = $this->get('oc_fidelite.client_manager')->readAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $id = $form["form"]->getData()->getId();
+        $form = $this->get('oc_fidelite.client_manager')->recap($clients);
+
+        if ($form->isSubmitted()  && $form->isValid()) {
+            $id = $form['id']->getData()->getId();
+
             return $this->redirectToRoute('recap_clt_detail', array(
                 'id' => $id
             ));

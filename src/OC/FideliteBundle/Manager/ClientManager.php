@@ -4,6 +4,7 @@ namespace OC\FideliteBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Client;
+use OC\FideliteBundle\Form\Type\ClientSearchType;
 use OC\FideliteBundle\Form\Type\ClientType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormFactory;
@@ -91,10 +92,10 @@ class ClientManager {
         $this->em->flush($client);
     }
 
-    public function recap() {
+    public function recap($client) {
         $request = $this->request->getCurrentRequest();
-        $client = new Client();
-        $form = $this->form->create('OC\FideliteBundle\Form\Type\ClientSearchType', $client);
+
+        $form = $this->form->create(ClientSearchType::class, $client);
         $form->handleRequest($request);
         return $form;
     }

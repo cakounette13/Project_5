@@ -18,10 +18,9 @@
                     {{ form_label(form.id, "", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
                     {{ form_errors(form.id) }}
                     <div class="col-sm-7">
-                        {{ form_widget(form.id, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.id, {'attr': {'class': 'liste form-control', 'id': 'liste'}}) }}
                     </div>
                 </div>
-                {{ form_rest(form) }}
 
                 <input type="submit" value="Valider" class="btn btn-default btn-lg active">
                 {{ form_end(form) }}
@@ -33,3 +32,4 @@
         <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
     </div>
 {% endblock %}
+

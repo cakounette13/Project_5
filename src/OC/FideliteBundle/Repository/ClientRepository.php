@@ -16,7 +16,7 @@ class ClientRepository extends EntityRepository
     public function getAllClientsParOrdre($client)
     {
         $queryBuilder = $this->createQueryBuilder('a')
-            ->select('a.id', 'a.denomination','a.nom', 'a.prenom', 'a.societe', 'a.codePostal', 'a.ville', 'a.portable', 'a.dateNaissance', 'a.email', 'a.nbr_ventes', 'a.points_fidelite' )
+            ->select('a.id', 'a.denomination','a.nom', 'a.prenom', 'a.societe', 'a.codePostal', 'a.ville', 'a.portable', 'a.dateNaissance', 'a.email', 'a.nbrVentes', 'a.pointsFidelite' )
             ->add('orderBy','a.nom ASC, a.prenom ASC, a.societe ASC ,a.dateNaissance ASC')
         ;
 

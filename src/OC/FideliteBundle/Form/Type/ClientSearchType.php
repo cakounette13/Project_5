@@ -18,14 +18,17 @@ class ClientSearchType extends AbstractType
     {
         $builder
             ->add('id',  EntityType::class, [
-                'class' => 'OC\FideliteBundle\Entity\Client',
+                'class' => 'OCFideliteBundle:Client',
                 'label' => 'Choix du client',
+                'required' => true,
+                'multiple' => false,
+                'placeholder' => '-- Sélectionner le client --',
                 'query_builder' =>
                     function (ClientRepository $er) {
                         return $er->createQueryBuilder( 't' )
                             ->orderBy( 't.nom', 'ASC' );
                     },
-                "choice_label" => function ($client, $nom)
+                "choice_label" => function ($client, $id)
                 {
                     return "- ". $client->getNom() . " " . $client->getPrenom() . " - " . $client->getSociete();
                 },
@@ -37,14 +40,9 @@ class ClientSearchType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'OC\FideliteBundle\Entity\Client'
-        ));
-    }
-
-    public function getName()
-    {
-        return 'oc_fidelitebundle_clientsearchtype';
+//        $resolver->setDefaults(array(
+//            'data_class' => 'OC\FideliteBundle\Entity\Client'
+//        ));
     }
 }
 
