@@ -4,7 +4,6 @@ namespace OC\FideliteBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Vente;
-use OC\FideliteBundle\Form\Type\ClientType;
 use OC\FideliteBundle\Form\Type\VenteType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;

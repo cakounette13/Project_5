@@ -3,7 +3,6 @@
 namespace OC\FideliteBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NoResultException;
 
 /**
  * VenteRepository

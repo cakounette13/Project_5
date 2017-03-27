@@ -28,7 +28,7 @@ class ClientSearchType extends AbstractType
                         return $er->createQueryBuilder( 't' )
                             ->orderBy( 't.nom', 'ASC' );
                     },
-                "choice_label" => function ($client, $id)
+                "choice_label" => function (Client $client, $id)
                 {
                     return "- ". $client->getNom() . " " . $client->getPrenom() . " - " . $client->getSociete();
                 },

@@ -36,7 +36,7 @@ class VenteType extends AbstractType
                         return $er->createQueryBuilder( 't' )
                             ->orderBy( 't.nom', 'ASC' );
                     },
-                "choice_label" => function ($client, $nom)
+                "choice_label" => function (Client $client, $nom)
                 {
                     return "- ". $client->getNom() . " " . $client->getPrenom() . " - " . $client->getSociete();
                 },

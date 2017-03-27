@@ -1,10 +1,11 @@
 {
+    "description": "Gestion fidélité",
     "name": "admin/project_5",
     "license": "proprietary",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "Project_5\\": "src/"
         },
         "classmap": [
             "app/AppKernel.php",
