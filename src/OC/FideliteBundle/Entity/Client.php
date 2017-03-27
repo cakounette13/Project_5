@@ -96,14 +96,14 @@ class Client
 
     /**
      * @var int
-     * @ORM\Column(name="nbr_ventes", type="integer", nullable=true)
+     * @ORM\Column(name="nbrVentes", type="integer", nullable=true)
      */
-    private $nbrVentes;
+    private $nbrVentes = 0;
 
 
     /**
      * @var float
-     * @ORM\Column(name="points_fidelite", type="float", scale=2, nullable=true)
+     * @ORM\Column(name="pointsFidelite", type="float", scale=2, nullable=true)
      */
     private $pointsFidelite = 0;
 
@@ -369,6 +369,15 @@ class Client
      */
     public function removeVente(Vente $vente) {
         $this->ventes->removeElement($vente);
+    }
+
+    public function getNbrVentes() {
+        $this->nbrVentes;
+    }
+
+    public function setNbrVentes($nbrVentes) {
+        $this->nbrVentes = $nbrVentes;
+
     }
 
     public function ajouteNbrVentes() {

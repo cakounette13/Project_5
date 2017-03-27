@@ -2,6 +2,7 @@
 
 namespace OC\FideliteBundle\Form\Type;
 
+use OC\FideliteBundle\Entity\Client;
 use OC\FideliteBundle\Repository\ClientRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
