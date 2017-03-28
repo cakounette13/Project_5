@@ -121,7 +121,7 @@ class Client
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -372,7 +372,7 @@ class Client
     }
 
     public function getNbrVentes() {
-        $this->nbrVentes;
+        return $this->nbrVentes;
     }
 
     public function setNbrVentes($nbrVentes) {

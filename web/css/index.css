@@ -63,15 +63,19 @@ td {
     text-align: left;
 }
 
-.tableClient td:nth-child(1), td:nth-child(5), td:nth-child(6) , td:nth-child(8),  td:nth-child(9){
+.tableClient td:nth-child(1), .tableClient td:nth-child(5), .tableClient td:nth-child(6) , .tableClient td:nth-child(8),  .tableClient td:nth-child(9){
     text-align: center;
 }
 
-.tableVente td:nth-child(1), td:nth-child(5), td:nth-child(9), td:nth-child(10){
+.tableClient td:nth-child(2),.tableClient td:nth-child(3), .tableClient td:nth-child(4), .tableClient td:nth-child(7){
+    text-align: left;
+}
+
+.tableVente td:nth-child(1), .tableVente td:nth-child(5), .tableVente td:nth-child(9), .tableVente td:nth-child(10){
     text-align: center;
 }
 
-.tableVente td:nth-child(6), td:nth-child(7), td:nth-child(8){
+.tableVente td:nth-child(6), .tableVente td:nth-child(7), .tableVente td:nth-child(8){
     text-align: right;
 }
 
@@ -79,7 +83,7 @@ td {
     text-align: center;
 }
 
-.tableDetailClient td:nth-child(2), td:nth-child(3), td:nth-child(4) {
+.tableDetailClient td:nth-child(2), .tableDetailClient td:nth-child(3), .tableDetailClient td:nth-child(4) {
     text-align: right;
 }
 
