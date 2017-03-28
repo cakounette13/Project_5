@@ -105,7 +105,16 @@ class VenteManager
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $pointsVente = $this->container->get('oc_fidelite.points_fidelite')->calculPointsFideliteParVente($vente);
+            $ancienPointsVente = $vente->getPointFideliteVente();
+            $AjustPointsClient = $pointsVente - $ancienPointsVente;
+            $cumulPointsClient = $vente->getClient()->getPointsFidelite();
+            $pointsClient = $cumulPointsClient + $AjustPointsClient;
+            $client = $vente->getClient();
+            $client->setPointsFidelite($pointsClient);
+            $vente->setPointFideliteVente($pointsVente);
             $this->em->flush($vente);
+            $this->em->flush($client);
         }
         return $editForm;
     }
@@ -116,10 +125,18 @@ class VenteManager
     * @param Vente $vente
     */
     public function delete(Vente $vente) {
-        $nbrVentes = $vente->getClient()->deduitNbrVentes();
-//        $points = $vente->deduitPointsFideliteVente();
+        $client = $vente->getClient();
+        $nbrVentes = $client->getNbrVentes();
+        $nbrVentes = $nbrVentes - 1;
+        $client->setNbrVentes($nbrVentes);
+        $pointsClient = $client->getPointsFidelite();
+        $pointsVente = $vente->getPointFideliteVente();
+        $pointsUtilises = $vente->getPointsFideliteUtilises();
+        $points = $pointsClient - $pointsVente + $pointsUtilises;
+        $client->setPointsFidelite($points);
+
         $this->em->remove($vente);
         $this->em->flush($vente);
-        $this->em->flush($nbrVentes);
+        $this->em->flush($client);
     }
 }
