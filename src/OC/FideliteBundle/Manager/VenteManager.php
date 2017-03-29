@@ -5,6 +5,7 @@ namespace OC\FideliteBundle\Manager;
 use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Vente;
 use OC\FideliteBundle\Form\Type\VenteType;
+use OC\FideliteBundle\Services\PointsFidelite;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactory;
@@ -13,9 +14,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class VenteManager
 {
     /**
-     * @var ContainerInterface
+     * @var PointsFidelite
      */
-    private $container;
+    private $pointsFidelite;
 
     /**
      * @var EntityManager
@@ -39,10 +40,10 @@ class VenteManager
      * @param FormFactory $form
      * @param RequestStack $request
      */
-    public function __construct(EntityManager $em, ContainerInterface $container, FormFactory $form, RequestStack $request)
+    public function __construct(EntityManager $em, PointsFidelite $pointsFidelite, FormFactory $form, RequestStack $request)
     {
         $this->em = $em;
-        $this->container = $container;
+        $this->pointsFidelite = $pointsFidelite;
         $this->form = $form;
         $this->request = $request;
     }
@@ -62,8 +63,8 @@ class VenteManager
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($vente);
-            $pointsVente = $this->container->get('oc_fidelite.points_fidelite')->calculPointsFideliteParVente($vente);
-            $points = $this->container->get('oc_fidelite.points_fidelite')->calculCumulPointsFidelite($vente);
+            $pointsVente = $this->pointsFidelite->calculPointsFideliteParVente($vente);
+            $points = $this->pointsFidelite->calculCumulPointsFidelite($vente);
             $client = $vente->getClient()->setPointsFidelite($points);
             $client = $vente->getClient()->ajouteNbrVentes();
             $vente = $vente->setPointFideliteVente($pointsVente);
@@ -101,15 +102,18 @@ class VenteManager
     public function update(Vente $vente) {
         $request = $this->request->getCurrentRequest();
 
+        $venteOld = $this->em->getRepository(Vente::class)->findOneBy(array('id' => $request->get('id')));
+        $ancienPointsUtilises = $venteOld->getPointsFideliteUtilises();
         $editForm = $this->form->create(VenteType::class, $vente);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $pointsVente = $this->container->get('oc_fidelite.points_fidelite')->calculPointsFideliteParVente($vente);
+            $pointsVente = $this->pointsFidelite->calculPointsFideliteParVente($vente);
             $ancienPointsVente = $vente->getPointFideliteVente();
             $AjustPointsClient = $pointsVente - $ancienPointsVente;
             $cumulPointsClient = $vente->getClient()->getPointsFidelite();
-            $pointsClient = $cumulPointsClient + $AjustPointsClient;
+            $ajustPointsUtilises = $vente->getPointsFideliteUtilises() - $ancienPointsUtilises;
+            $pointsClient = $cumulPointsClient + $AjustPointsClient - $ajustPointsUtilises;
             $client = $vente->getClient();
             $client->setPointsFidelite($pointsClient);
             $vente->setPointFideliteVente($pointsVente);

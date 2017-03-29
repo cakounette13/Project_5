@@ -14,7 +14,7 @@ services:
         class: OC\FideliteBundle\Manager\VenteManager
         arguments:
             - "@doctrine.orm.default_entity_manager"
-            - "@service_container"
+            - "@oc_fidelite.points_fidelite"
             - "@form.factory"
             - "@request_stack"
 

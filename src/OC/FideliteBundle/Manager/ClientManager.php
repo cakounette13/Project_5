@@ -90,16 +90,12 @@ class ClientManager {
     public function delete($client) {
         $client = $this->em->getRepository('OCFideliteBundle:Client')->findById($client);
         $ventes = $this->em->getRepository('OCFideliteBundle:Vente')->getAllVentesByClient($client);
+        if ($client->getVentes() != 0) {
 
-        var_dump($ventes);
-        die();
-//        for( $i = 0; $i >= count($ventes) ; $i++) {
-//            $this->em->remove($ventes[$i]);
-//            $this->em->flush($ventes[$i]);
-//        }
-
-        $this->em->remove($client);
-        $this->em->flush($client);
+        } else {
+            $this->em->remove($client);
+            $this->em->flush($client);
+        }
     }
 
     public function recap($client) {
