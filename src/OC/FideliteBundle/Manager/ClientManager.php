@@ -11,10 +11,6 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class ClientManager {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
 
     /**
      * @var EntityManager
@@ -34,14 +30,12 @@ class ClientManager {
     /**
      * Client Manager constructor.
      * @param EntityManager $em
-     * @param ContainerInterface $container
      * @param FormFactory $form
      * @param RequestStack $request
      */
-    public function __construct(EntityManager $em, ContainerInterface $container, FormFactory $form, RequestStack $request)
+    public function __construct(EntityManager $em, FormFactory $form, RequestStack $request)
     {
         $this->em = $em;
-        $this->container = $container;
         $this->form = $form;
         $this->request = $request;
     }
@@ -90,7 +84,7 @@ class ClientManager {
     public function delete($client) {
         $client = $this->em->getRepository('OCFideliteBundle:Client')->findById($client);
         $ventes = $this->em->getRepository('OCFideliteBundle:Vente')->getAllVentesByClient($client);
-        if ($client->getVentes() != 0) {
+        if ($ventes != 0) {
 
         } else {
             $this->em->remove($client);

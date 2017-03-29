@@ -36,7 +36,7 @@ class VenteManager
     /**
      * VenteManager constructor.
      * @param EntityManager $em
-     * @param ContainerInterface $container
+     * @param PointsFidelite $pointsFidelite
      * @param FormFactory $form
      * @param RequestStack $request
      */
