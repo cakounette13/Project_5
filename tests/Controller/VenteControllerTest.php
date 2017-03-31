@@ -2,54 +2,48 @@
 
 namespace OC\FideliteBundle\Tests\Controller;
 
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class VenteControllerTest extends WebTestCase
 {
-    /*
-    public function testCompleteScenario()
-    {
-        // Create a new client to browse the application
+    public function testPageNewVente() {
+
         $client = static::createClient();
 
-        // Create a new entry in the database
-        $crawler = $client->request('GET', '/vente/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /vente/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        $crawler = $client->request('GET', '/vente/new');
 
-        // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'oc_fidelitebundle_vente[field_name]'  => 'Test',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
-
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
-
-        $form = $crawler->selectButton('Update')->form(array(
-            'oc_fidelitebundle_vente[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
-
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
-        $crawler = $client->followRedirect();
-
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /vente/new");
     }
 
-    */
+    public function testPageAllVentes() {
+
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/vente/all');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /vente/all");
+    }
+
+    public function testCompleteScenario()
+    {
+        // Création d'une nouvelle vente
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
+        $link = $crawler->selectLink('Nouvelle')->link();
+        $crawler = $client->click($link);
+
+        // Création du formulaire
+        $form = $crawler->selectButton('Valider')->form(array(
+            'vente[client]'  => '1',
+            'vente[dateVente]' => '28/12/2017',
+            'vente[montantVente]' => '126',
+            'vente[pointsFideliteUtilises]' => '2'
+        ));
+
+        // Soumission du formulaire
+        $client->submit($form);
+    }
 }

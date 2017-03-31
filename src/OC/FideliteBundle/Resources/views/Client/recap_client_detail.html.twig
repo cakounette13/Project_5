@@ -29,9 +29,9 @@
                 {% for vente in ventes %}
                     <tr>
                         <td>{{ vente.dateVente|date("d/m/Y") }}</td>
-                        <td>{{ vente.montantvente }}</td>
-                        <td>{{ vente.pointFideliteVente }}</td>
-                        <td>{{ vente.pointsFideliteUtilises }}</td>
+                        <td>{{ vente.montantvente|number_format(2, '.', ',') }}</td>
+                        <td>{{ vente.pointFideliteVente|number_format(2, '.', ',') }}</td>
+                        <td>{{ vente.pointsFideliteUtilises|number_format(2, '.', ',') }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -39,7 +39,7 @@
         </div>
 
         <div class="row">
-            <h2>Points disponibles à ce jour : {{ client.pointsFidelite }}</h2>
+            <h2>Points disponibles à ce jour : {{ client.pointsFidelite|number_format(2, '.', ',') }}</h2>
         </div>
 
         <div class="row">

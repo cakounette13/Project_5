@@ -6,50 +6,61 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ClientControllerTest extends WebTestCase
 {
-    /*
-    public function testCompleteScenario()
-    {
-        // Create a new client to browse the application
+    public function testPageNewClient() {
+
         $client = static::createClient();
 
-        // Create a new entry in the database
-        $crawler = $client->request('GET', '/client/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /client/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        $crawler = $client->request('GET', '/client/new');
 
-        // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'oc_fidelitebundle_client[field_name]'  => 'Test',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
-
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
-
-        $form = $crawler->selectButton('Update')->form(array(
-            'oc_fidelitebundle_client[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
-
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
-        $crawler = $client->followRedirect();
-
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /client/new");
     }
 
-    */
+    public function testPageAllClients() {
+
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/client/all');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /client/all");
+    }
+
+    public function testCreationClient()
+    {
+        $client = static::createClient();
+
+        // Créer un nouveau client
+        $crawler = $client->request('GET', '/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
+        $link = $crawler->filter('a:contains("Nouveau client")')->link();
+        $crawler = $client->click($link);
+
+        // Creation du formulaire
+        $form = $crawler->selectButton('Valider')->form(array(
+            'client[denomination]'=> 'Madame',
+            'client[nom]' => 'DURAND',
+            'client[prenom]' => 'Bernard.',
+            'client[societe]' => 'Bourvence',
+            'client[codePostal]' => '06200',
+            'client[ville]' => 'ville',
+            'client[portable]' => '0699887766',
+            'client[dateNaissance]' => '14/02/1972',
+            'client[email]' => 'c@gmail.com',
+        ));
+
+        // Soumission du formulaire
+        $client->submit($form);
+    }
+
+    public function testVueDeTousLesClients() {
+        $client = static::createClient();
+
+        // Envoi vers vue Gestion des clients
+        $crawler = $client->request('GET', '/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
+        $link = $crawler->selectLink('Gestion des clients')->link();
+        $crawler = $client->click($link);
+
+        // Verification de la nouvelle url
+        $this->assertEquals('/client/all', '/client/all' );
+    }
 }

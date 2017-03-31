@@ -92,7 +92,7 @@ class ClientController extends Controller
     public function deleteAction(Request $request, Client $client)
     {
         $this->get('oc_fidelite.client_manager')->delete($client);
-        $this->get('ras_flash_alert.alert_reporter')->addError("Fiche Client supprimée !");
+//        $this->get('ras_flash_alert.alert_reporter')->addError("Fiche Client supprimée !");
 
         return $this->redirectToRoute('all_clt');
     }

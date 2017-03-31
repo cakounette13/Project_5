@@ -36,7 +36,7 @@
                 <tbody>
                 {% for client in clients %}
                     <tr>
-                        <td><a href={{ path('show_clt', { 'id': client.id }) }}>
+                        <td><a href={{ path('show_clt', { 'id': client.id }) }} name="voir" >
                                 <image src={{ asset('images/glyphicons/png/glyphicons-52-eye-open.png') }} alt="voir"></image>
                             </a></td>
                         <td>{{ client.nom|capitalize }}</td>

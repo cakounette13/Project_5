@@ -6,11 +6,16 @@ use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Client;
 use OC\FideliteBundle\Form\Type\ClientSearchType;
 use OC\FideliteBundle\Form\Type\ClientType;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class ClientManager {
+
+    /**
+     * @var Container
+     */
+    private $container;
 
     /**
      * @var EntityManager
@@ -32,12 +37,14 @@ class ClientManager {
      * @param EntityManager $em
      * @param FormFactory $form
      * @param RequestStack $request
+     * @param Container $container
      */
-    public function __construct(EntityManager $em, FormFactory $form, RequestStack $request)
+    public function __construct(EntityManager $em, FormFactory $form, RequestStack $request, Container $container)
     {
         $this->em = $em;
         $this->form = $form;
         $this->request = $request;
+        $this->container = $container;
     }
 
     /**
@@ -82,13 +89,15 @@ class ClientManager {
     }
 
     public function delete($client) {
-        $client = $this->em->getRepository('OCFideliteBundle:Client')->findById($client);
+        $client = $this->em->getRepository('OCFideliteBundle:Client')->find($client);
+        $nbrVentes = $client->getNbrventes();
         $ventes = $this->em->getRepository('OCFideliteBundle:Vente')->getAllVentesByClient($client);
-        if ($ventes != 0) {
-
-        } else {
+        if ($nbrVentes == 0) {
             $this->em->remove($client);
             $this->em->flush($client);
+            $this->container->get('ras_flash_alert.alert_reporter')->addError("Fiche Client supprimée !");
+        } else {
+            $this->container->get('ras_flash_alert.alert_reporter')->addError("Suppression impossible car le client a des ventes affectées !");
         }
     }
 

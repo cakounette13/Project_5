@@ -22,7 +22,7 @@ services:
             class: OC\FideliteBundle\Manager\ClientManager
             arguments:
                 - "@doctrine.orm.default_entity_manager"
-                - "@service_container"
                 - "@form.factory"
                 - "@request_stack"
+                - "@service_container"
 
