@@ -26,3 +26,15 @@ services:
                 - "@request_stack"
                 - "@service_container"
 
+    oc_fidelite.email:
+        class: OC\FideliteBundle\Services\Email
+        arguments:
+            - "@mailer"
+            - "@twig"
+
+    oc_fidelite.anniv_client.listener:
+        class: OC\FideliteBundle\Anniversaire\AnnivClientListener
+        arguments:
+            - "@oc_fidelite.email"
+        tags:
+            - { name: kernel.event.listener, event: kernel.request , method: activeEvent}

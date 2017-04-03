@@ -107,4 +107,16 @@ class ClientManager {
         $form->handleRequest($request);
         return $form;
     }
+
+    public function cadeauAnniv($client) {
+
+        $today = new \DateTime();
+        $clients = $this->em->getRepository('OCFideliteBundle:Client')->findAll();
+        foreach ($clients as $client) {
+            $anniv = $client->getDateNaissance();
+            if ($today == $anniv) {
+                return $this->get('oc_fidelitebundle.email')->envoiMail($client);
+            }
+        }
+    }
 }
