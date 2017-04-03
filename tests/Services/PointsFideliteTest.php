@@ -2,48 +2,57 @@
 
 namespace Tests\Services;
 
-use OC\FideliteBundle\Entity\Client;
-use OC\FideliteBundle\Entity\Vente;
+use OC\FideliteBundle\Repository\ClientRepository;
+use OC\FideliteBundle\Repository\VenteRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PointsFideliteTest extends WebTestCase
 {
-    protected $client;
-    protected $vente;
+    /**
+     * @var ClientRepository
+     *
+     */
+    private $clientRepository;
+
+    /**
+     * @var VenteRepository
+     */
+    private $venteRepository;
 
     public function setUp() {
-        $this->vente = new Vente();
-        $this->vente->setMontantVente('100');
-        $this->vente->setPointsFideliteUtilises('2');
-
-        $client = new Client();
-        $client->setId('1');
-        $client->setPointsFidelite(10);
-        $client->addVente($this->vente);
-        $ventes = array();
-        $ventes[0] = $this->vente;
-
-        var_dump($this->vente);
-        die();
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $this->clientRepository = $kernel->getContainer()
+            ->get('doctrine.orm.entity_manager')
+            ->getRepository('OCFideliteBundle:Client');
+        $this->venteRepository = $kernel->getContainer()
+            ->get('doctrine.orm.entity_manager')
+            ->getRepository('OCFideliteBundle:Vente');
     }
 
     public function testCalculPointsFideliteParVente() {
 
-        $client = static::createClient();
-        $container = $client->getContainer();
-        $container->get('oc_fidelite.points_fidelite')->calculPointsFideliteParVente($this->vente);
+        $request = static::createClient();
+        $clients = $this->clientRepository->findAll();
+        $client = $clients['0'];
+        $vente = $this->venteRepository->find($client);
+        $request->getContainer()->get('oc_fidelite.points_fidelite')->calculPointsFideliteParVente($vente);
 
-        $this->assertEquals('6', $this->vente->getPointFideliteVente());
-        $this->assertEquals('2', $this->vente->getPointsFideliteUtilises());
+
+        $this->assertEquals('5', $vente->getPointsFideliteUtilises());
+        $this->assertEquals('6', $vente->getPointFideliteVente());
+
     }
 
     public function testCalculCumulPointsFidelite() {
 
-        $client = static::createClient();
-        $container = $client->getContainer();
-        $container->get('oc_fidelite.points_fidelite')->calculCumulPointsFidelite($this->vente);
+        $request = static::createClient();
+        $clients = $this->clientRepository->findAll();
+        $client = $clients['0'];
+        $vente = $this->venteRepository->find($client);
+        $request->getContainer()->get('oc_fidelite.points_fidelite')->calculCumulPointsFidelite($vente);
 
-        $this->assertEquals('14', $this->client->getPointsFidelite());
+        $this->assertEquals('22.5', $vente->getClient()->getPointsFidelite());
     }
 
 }

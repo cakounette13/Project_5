@@ -32,9 +32,9 @@ services:
             - "@mailer"
             - "@twig"
 
-    oc_fidelite.anniv_client.listener:
-        class: OC\FideliteBundle\Anniversaire\AnnivClientListener
+    oc_fidelite.birthday_event_listener:
+        class: OC\FideliteBundle\EventManager\BirthdayEventListener
         arguments:
             - "@oc_fidelite.email"
         tags:
-            - { name: kernel.event.listener, event: kernel.request , method: activeEvent}
+            - { name: kernel.event_listener, event: "oc_fidelite.birthday_event" , method: "activeEvent"}
