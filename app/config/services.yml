@@ -24,7 +24,8 @@ services:
                 - "@doctrine.orm.default_entity_manager"
                 - "@form.factory"
                 - "@request_stack"
-                - "@service_container"
+                - "@session"
+                - "@oc_fidelite.email"
 
     oc_fidelite.email:
         class: OC\FideliteBundle\Services\Email
@@ -37,4 +38,4 @@ services:
         arguments:
             - "@oc_fidelite.email"
         tags:
-            - { name: kernel.event_listener, event: "oc_fidelite.birthday_event" , method: "activeEvent"}
+            - { name: kernel.event_listener, event: 'birthday.event' , method: 'activeEvent'}

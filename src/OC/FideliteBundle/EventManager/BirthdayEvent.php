@@ -2,28 +2,32 @@
 
 namespace OC\FideliteBundle\EventManager;
 
+use OC\FideliteBundle\Entity\Client;
 use Symfony\Component\EventDispatcher\Event;
 
 class BirthdayEvent extends Event
 {
-    /**
-     * @var \DateTime
-     */
-    protected $dateNaissance;
+    const NAME = 'birthday_event';
 
     /**
-     * @return \DateTime
+     * @var Client
      */
-    public function getDateNaissance()
+    public $client;
+
+    /**
+     * BirthdayEvent constructor.
+     * @param Client $client
+     */
+    public function __construct(Client $client)
     {
-        return $this->dateNaissance;
+        $this->client = $client;
     }
 
     /**
-     * @param \DateTime $dateNaissance
+     * @return Client
      */
-    public function setDateNaissance($dateNaissance)
+    public function getClient()
     {
-        $this->dateNaissance = $dateNaissance;
+        return $this->client;
     }
 }

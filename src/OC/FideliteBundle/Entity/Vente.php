@@ -35,7 +35,6 @@ class Vente
      */
     private $montantVente;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="OC\FideliteBundle\Entity\Client", inversedBy="ventes", cascade={"persist", "merge"})
      * @ORM\JoinColumn(nullable=false)
@@ -53,7 +52,6 @@ class Vente
      * @var float
      * @ORM\Column(name="pointsFideliteUtilises", type="float", scale=2, nullable=true)
      */
-
     private $pointsFideliteUtilises = 0;
 
 
@@ -77,7 +75,6 @@ class Vente
     public function setDateVente($dateVente)
     {
         $this->dateVente = $dateVente;
-
         return $this;
     }
 
@@ -101,7 +98,6 @@ class Vente
     public function setMontantVente($montantVente)
     {
         $this->montantVente = $montantVente;
-
         return $this;
     }
 
@@ -115,7 +111,6 @@ class Vente
         return $this->montantVente;
     }
 
-
     /**
      * Set client
      *
@@ -126,7 +121,6 @@ class Vente
     public function setClient(Client $client)
     {
         $this->client = $client;
-
         return $this;
     }
 
@@ -171,5 +165,4 @@ class Vente
     {
         $this->pointsFideliteUtilises = $pointsFideliteUtilises;
     }
-
 }

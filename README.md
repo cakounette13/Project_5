@@ -1,4 +1,7 @@
 Project_5
 =========
+- cloner le repository
 
-A Symfony project created on March 20, 2017, 9:46 am.
+- installer composer
+
+- Créer la base de données puis installer les fixtures

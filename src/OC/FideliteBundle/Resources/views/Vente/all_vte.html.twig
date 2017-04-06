@@ -11,9 +11,13 @@
             <h1>Récapitulatif</h1>
         </div>
 
-        <div class="row">
-            {{ render_flash_alerts() }}
-        </div>
+        {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="alert alert-{{ label }}">
+                    {{ flash }}
+                </div>
+            {% endfor %}
+        {% endfor %}
 
         <div id="nouveau" class="row">
             <a role="button" class="btn btn-default active" href={{ path("new_vte") }}>Nouvelle vente</a>
@@ -64,8 +68,5 @@
         <div class="row">
             <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
         </div>
-
     </div>
-
-
 {% endblock %}

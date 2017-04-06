@@ -28,7 +28,6 @@ class VenteRepository extends EntityRepository
         }   catch (NoResultException $e) {
             $query = 0;
         }
-
         return $query;
     }
 }

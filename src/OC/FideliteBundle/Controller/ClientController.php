@@ -24,6 +24,7 @@ class ClientController extends Controller
     public function allAction()
     {
         $clients = $this->get('oc_fidelite.client_manager')->readAll();
+
         return $this->render('OCFideliteBundle:Client:all_clt.html.twig', array(
             'clients' => $clients,
         ));
@@ -40,7 +41,6 @@ class ClientController extends Controller
         $form = $this->get('oc_fidelite.client_manager')->add();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('ras_flash_alert.alert_reporter')->addSuccess("Nouveau Client créé !");
             return $this->redirectToRoute('accueil');
         }
 
@@ -58,6 +58,7 @@ class ClientController extends Controller
     public function showAction(Client $client)
     {
         $client = $this->get('oc_fidelite.client_manager')->read($client);
+
         return $this->render('OCFideliteBundle:Client:show_clt.html.twig', array(
             'client' => $client,
         ));
@@ -74,7 +75,6 @@ class ClientController extends Controller
         $editForm = $this->get('oc_fidelite.client_manager')->update($client);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->get('ras_flash_alert.alert_reporter')->addSuccess("Fiche Client modifiée !");
             return $this->redirectToRoute('all_clt', array('id' => $client->getId()));
         }
 
@@ -85,52 +85,56 @@ class ClientController extends Controller
     }
 
     /**
-     * Deletes a client entity.
+     * Delete a client entity.
      *
      * @Route("/suppr/{id}", name="delete_clt")
      */
     public function deleteAction(Request $request, Client $client)
     {
         $this->get('oc_fidelite.client_manager')->delete($client);
-//        $this->get('ras_flash_alert.alert_reporter')->addError("Fiche Client supprimée !");
 
         return $this->redirectToRoute('all_clt');
     }
 
     /**
+     * Choix du Récapitulatif en sélectionnant le client
+     *
      * @Route("/recap/all/", name="recap_clt")
      * @Method({"GET", "POST"})
      */
-    public function recapAction(Request $request) {
-
+    public function recapAction(Request $request)
+    {
         $clients = $this->get('oc_fidelite.client_manager')->readAll();
-
         $form = $this->get('oc_fidelite.client_manager')->recap($clients);
 
-        if ($form->isSubmitted()  && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $id = $form['id']->getData()->getId();
 
             return $this->redirectToRoute('recap_clt_detail', array(
                 'id' => $id
             ));
         }
+
         return $this->render('OCFideliteBundle:Client:recap_client.html.twig', array(
             'form' => $form->createView()
         ));
     }
 
     /**
+     * Récapitulatif d'un client sélectionné
+     *
      * @Route("/recap/all/detail/{id}", name="recap_clt_detail")
      * @Method({"GET"})
      */
-    public function recapDetailAction(Request $request, $id) {
+    public function recapDetailAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('OCFideliteBundle:Client')->find($id);
         $ventes = $em->getRepository('OCFideliteBundle:Vente')->findBy(array('client' => $client));
+
         return $this->render('OCFideliteBundle:Client:recap_client_detail.html.twig', array(
             'client' => $client,
             'ventes' => $ventes
-
         ));
     }
 }

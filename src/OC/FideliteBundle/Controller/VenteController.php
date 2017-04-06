@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-
 /**
  * Vente controller.
  *
@@ -42,7 +41,6 @@ class VenteController extends Controller
         $form = $this->get('oc_fidelite.vente_manager')->add();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('ras_flash_alert.alert_reporter')->addSuccess("Vente enregistrée !");
             return $this->redirectToRoute('accueil');
         }
 
@@ -77,7 +75,6 @@ class VenteController extends Controller
         $editForm = $this->get('oc_fidelite.vente_manager')->update($vente);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->get('ras_flash_alert.alert_reporter')->addSuccess("Vente modifiée !");
             return $this->redirectToRoute('all_vte', array('id' => $vente->getId()));
         }
 
@@ -95,9 +92,7 @@ class VenteController extends Controller
     public function deleteAction(Request $request, Vente $vente)
     {
         $this->get('oc_fidelite.vente_manager')->delete($vente);
-        $this->get('ras_flash_alert.alert_reporter')->addError("Vente supprimée !");
 
         return $this->redirectToRoute('accueil');
     }
-
 }

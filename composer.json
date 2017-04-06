@@ -32,7 +32,6 @@
         "twig/twig": "~1.12||~2.0",
         "twig/extensions": "1.2",
         "twbs/bootstrap": "^3.3",
-        "ras/flash-alert-bundle": "^2.1",
         "phpunit/phpunit": "^5.7"
     },
     "require-dev": {

@@ -33,7 +33,6 @@ class Client
      */
     private $denomination;
 
-
     /**
      * @var string
      * @Assert\Length(min=2, minMessage="Votre nom doit comprendre au moins 2 caractères")
@@ -78,7 +77,7 @@ class Client
     /**
      * @var \DateTime()
      * @Assert\DateTime(message = "La date saisie n'est pas au bon format (ex:01/01/2050)")
-     * @ORM\Column(name="dateNaissance", type="datetime")
+     * @ORM\Column(name="dateNaissance", type="date")
      */
     private $dateNaissance;
 
@@ -99,7 +98,6 @@ class Client
      * @ORM\Column(name="nbrVentes", type="integer", nullable=true)
      */
     private $nbrVentes = 0;
-
 
     /**
      * @var float
@@ -136,7 +134,6 @@ class Client
     public function setNom($nom)
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -160,7 +157,6 @@ class Client
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
-
         return $this;
     }
 
@@ -184,7 +180,6 @@ class Client
     public function setCodePostal($codePostal)
     {
         $this->codePostal = $codePostal;
-
         return $this;
     }
 
@@ -208,7 +203,6 @@ class Client
     public function setVille($ville)
     {
         $this->ville = $ville;
-
         return $this;
     }
 
@@ -232,7 +226,6 @@ class Client
     public function setPortable($portable)
     {
         $this->portable = $portable;
-
         return $this;
     }
 
@@ -256,7 +249,6 @@ class Client
     public function setDateNaissance($dateNaissance)
     {
         $this->dateNaissance = $dateNaissance;
-
         return $this;
     }
 
@@ -280,7 +272,6 @@ class Client
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -304,7 +295,6 @@ class Client
     public function setSociete($societe)
     {
         $this->societe = $societe;
-
         return $this;
     }
 
@@ -328,7 +318,6 @@ class Client
     public function setDenomination($denomination)
     {
         $this->denomination = $denomination;
-
         return $this;
     }
 
@@ -350,6 +339,9 @@ class Client
         return $this->ventes;
     }
 
+    /**
+     * Client constructor.
+     */
     public function __construct()
     {
         $this->ventes = new ArrayCollection();
@@ -371,13 +363,18 @@ class Client
         $this->ventes->removeElement($vente);
     }
 
+    /**
+     * @return int
+     */
     public function getNbrVentes() {
         return $this->nbrVentes;
     }
 
+    /**
+     * @param $nbrVentes
+     */
     public function setNbrVentes($nbrVentes) {
         $this->nbrVentes = $nbrVentes;
-
     }
 
     public function ajouteNbrVentes() {
@@ -387,6 +384,7 @@ class Client
     public function deduitNbrVentes() {
         $this->nbrVentes--;
     }
+
     /**
      * @return float
      */
@@ -402,5 +400,4 @@ class Client
     {
         $this->pointsFidelite = $pointsFidelite;
     }
-
 }

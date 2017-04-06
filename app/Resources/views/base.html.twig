@@ -20,9 +20,13 @@
     <div class="container-fluid">
         <h1>La fidélité récompensée !</h1>
 
-        <div class="row">
-            {{ render_flash_alerts() }}
-        </div>
+        {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="alert alert-{{ label }}">
+                    {{ flash }}
+                </div>
+            {% endfor %}
+        {% endfor %}
 
         <div class="row">
             <a href={{ path("new_clt") }} role="button" class="btn btn-default btn-lg active">Nouveau</br> client</a>

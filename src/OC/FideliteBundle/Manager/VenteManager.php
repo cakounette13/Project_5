@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class VenteManager
 {
@@ -34,25 +35,31 @@ class VenteManager
     private $request;
 
     /**
+     * @var Session
+     */
+    private $session;
+
+    /**
      * VenteManager constructor.
+     *
      * @param EntityManager $em
      * @param PointsFidelite $pointsFidelite
      * @param FormFactory $form
      * @param RequestStack $request
      */
-    public function __construct(EntityManager $em, PointsFidelite $pointsFidelite, FormFactory $form, RequestStack $request)
+    public function __construct(EntityManager $em, PointsFidelite $pointsFidelite, FormFactory $form, RequestStack $request, Session $session)
     {
         $this->em = $em;
         $this->pointsFidelite = $pointsFidelite;
         $this->form = $form;
         $this->request = $request;
+        $this->session =$session;
     }
 
     /**
      * Insertion d'une vente
      *
      * @param Vente $vente
-     *
      */
     public function add() {
         $request = $this->request->getCurrentRequest();
@@ -70,6 +77,8 @@ class VenteManager
             $vente = $vente->setPointFideliteVente($pointsVente);
             $this->em->flush($vente);
             $this->em->flush($client);
+
+            $this->session->getFlashBag()->add('success', "Vente enregistrée !");
         }
         return $form;
     }
@@ -84,8 +93,9 @@ class VenteManager
     }
 
     /**
-     * Récupère toutes les ventes de la base de donnée
+     * Récupère toutes les ventes de la BDD
      *
+     * @return array|Vente[]
      */
     public function readAll() {
         $ventes = $this->em->getRepository('OCFideliteBundle:Vente')->findAll();
@@ -93,9 +103,8 @@ class VenteManager
         return $ventes;
     }
 
-
     /**
-     * Met à jour une vente stockée en base de donnée
+     * Modifie une vente stockée en base de donnée
      *
      * @param Vente $vente
      */
@@ -119,6 +128,8 @@ class VenteManager
             $vente->setPointFideliteVente($pointsVente);
             $this->em->flush($vente);
             $this->em->flush($client);
+
+            $this->session->getFlashBag()->add('success', "Vente modifiée !");
         }
         return $editForm;
     }
@@ -130,9 +141,11 @@ class VenteManager
     */
     public function delete(Vente $vente) {
         $client = $vente->getClient();
+
         $nbrVentes = $client->getNbrVentes();
         $nbrVentes = $nbrVentes - 1;
         $client->setNbrVentes($nbrVentes);
+
         $pointsClient = $client->getPointsFidelite();
         $pointsVente = $vente->getPointFideliteVente();
         $pointsUtilises = $vente->getPointsFideliteUtilises();
@@ -142,5 +155,7 @@ class VenteManager
         $this->em->remove($vente);
         $this->em->flush($vente);
         $this->em->flush($client);
+
+        $this->session->getFlashBag()->add('danger', "Vente supprimée !");
     }
 }

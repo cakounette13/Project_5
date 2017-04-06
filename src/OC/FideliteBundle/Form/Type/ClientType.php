@@ -2,8 +2,11 @@
 
 namespace OC\FideliteBundle\Form\Type;
 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -65,7 +68,7 @@ class ClientType extends AbstractType
             ))
             ->add('dateNaissance', DateType::class, array(
                 'label' => 'Date de Naissance',
-                'format' => 'dd/mm/yyyy',
+                'format' => 'dd/MM/yyyy',
                 'html5' => 'false',
                 'invalid_message' => 'La date saisie n\'est pas au bon format (01/01/2050)',
                 'widget' => 'single_text',
