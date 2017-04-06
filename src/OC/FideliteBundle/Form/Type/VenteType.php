@@ -22,7 +22,7 @@ class VenteType extends AbstractType
         $builder
             ->add('dateVente', DateTimeType::class, array(
                 'label' => 'Date de la vente',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd/MM/yyyy',
                 'html5' => 'false',
                 'invalid_message' => 'La date saisie n\'est pas au bon format (ex:01/01/2050)',
                 'widget' => 'single_text',

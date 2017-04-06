@@ -17,6 +17,7 @@ services:
             - "@oc_fidelite.points_fidelite"
             - "@form.factory"
             - "@request_stack"
+            - "@session"
 
     oc_fidelite.client_manager:
             class: OC\FideliteBundle\Manager\ClientManager
