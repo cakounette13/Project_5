@@ -13,7 +13,7 @@ use Doctrine\ORM\NoResultException;
  */
 class ClientRepository extends EntityRepository
 {
-    public function getAllClientsParOrdre($client)
+    public function getAllClientsParOrdre()
     {
         $queryBuilder = $this->createQueryBuilder('a')
             ->select('a.id', 'a.denomination','a.nom', 'a.prenom', 'a.societe', 'a.codePostal', 'a.ville', 'a.portable', 'a.dateNaissance', 'a.email', 'a.nbrVentes', 'a.pointsFidelite' )

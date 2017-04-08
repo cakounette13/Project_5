@@ -39,4 +39,4 @@ services:
         arguments:
             - "@oc_fidelite.email"
         tags:
-            - { name: kernel.event_listener, event: 'birthday.event' , method: 'activeEvent'}
+            - { name: kernel.event_listener, event: 'birthday_event' , method: 'activeEvent'}

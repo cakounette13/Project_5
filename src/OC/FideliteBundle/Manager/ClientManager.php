@@ -92,8 +92,7 @@ class ClientManager
      * @return array|int|Client[]
      */
     public function readAll() {
-        $clients = $this->em->getRepository('OCFideliteBundle:Client')->findAll();
-        $clients = $this->em->getRepository('OCFideliteBundle:Client')->getAllClientsParOrdre($clients);
+        $clients = $this->em->getRepository('OCFideliteBundle:Client')->getAllClientsParOrdre();
 
         return $clients;
     }

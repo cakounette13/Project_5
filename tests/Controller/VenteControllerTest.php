@@ -37,7 +37,7 @@ class VenteControllerTest extends WebTestCase
 
         // Création du formulaire
         $form = $crawler->selectButton('Valider')->form(array(
-            'vente[client]'  => '1',
+            'vente[client]'  => '3',
             'vente[dateVente]' => '28/12/2017',
             'vente[montantVente]' => '126',
             'vente[pointsFideliteUtilises]' => '2'

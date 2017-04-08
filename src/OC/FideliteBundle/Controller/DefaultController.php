@@ -2,10 +2,11 @@
 
 namespace OC\FideliteBundle\Controller;
 
-use OC\FideliteBundle\Entity\Client;
 use OC\FideliteBundle\EventManager\BirthdayEvent;
+use OC\FideliteBundle\EventManager\BirthdayEventListener;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class DefaultController extends Controller {
 
@@ -17,13 +18,14 @@ class DefaultController extends Controller {
      */
     public function indexAction()
     {
-//        $clients = $this->get('oc_fidelite.client_manager')->readAll();
-//
-//        foreach ($clients as $client) {
-//            var_dump($client);
-//            $event = new BirthdayEvent($client);
-//            $this->get('event_dispatcher')->dispatch(BirthdayEvent::NAME, $event);
-//        }
+        $em = $this->getDoctrine()->getManager();
+        $clients = $em->getRepository('OCFideliteBundle:Client')->findAll();
+
+        foreach ($clients as $client) {
+            $event = new BirthdayEvent($client);
+            $this->get('event_dispatcher')->dispatch(BirthdayEvent::NAME, $event);
+            $event->stopPropagation();
+       }
         return $this->render('base.html.twig');
     }
 }

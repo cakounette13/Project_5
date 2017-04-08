@@ -39,7 +39,7 @@ class Email
         // Composition du message du mail
         $message
             ->setCharset('UTF-8')
-            ->setSubject('Cadeau d\'anniversaire')
+            ->setSubject('CAVE ... - Cadeau d\'anniversaire')
             ->setBody($this->twig->render('OCFideliteBundle:Email:email.html.twig', array(
                 'client' => $client,
             )))
