@@ -105,6 +105,12 @@ class Client
      */
     private $pointsFidelite = 0;
 
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="mailEnvoyeLe", type="date")
+     */
+    private $mailEnvoyeLe;
+
 
     /**
      * Get id
@@ -399,5 +405,21 @@ class Client
     public function setPointsFidelite($pointsFidelite)
     {
         $this->pointsFidelite = $pointsFidelite;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getMailEnvoyeLe()
+    {
+        return $this->mailEnvoyeLe;
+    }
+
+    /**
+     * @param \DateTime $mailEnvoyeLe
+     */
+    public function setMailEnvoyeLe($mailEnvoyeLe)
+    {
+        $this->mailEnvoyeLe = $mailEnvoyeLe;
     }
 }

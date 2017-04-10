@@ -82,7 +82,8 @@ class ClientType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'Email',
                 )
-            ));
+            ))
+        ;
     }
 
     /**

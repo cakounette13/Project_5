@@ -7,6 +7,7 @@ use OC\FideliteBundle\EventManager\BirthdayEventListener;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends Controller {
 
@@ -22,10 +23,16 @@ class DefaultController extends Controller {
         $clients = $em->getRepository('OCFideliteBundle:Client')->findAll();
 
         foreach ($clients as $client) {
-            $event = new BirthdayEvent($client);
+            $mailEnvoyeLe = $client->getMailEnvoyeLe()->format('d m');
+            $todayEntier = new \DateTime();
+            $today = date('d m');
 
+            if ($mailEnvoyeLe != $today) {
+                $event = new BirthdayEvent($client);
                 $this->get('event_dispatcher')->dispatch(BirthdayEvent::NAME, $event);
-
+                $client->setMailEnvoyeLe($todayEntier);
+                $em->flush($client);
+            }
        }
         return $this->render('base.html.twig');
     }

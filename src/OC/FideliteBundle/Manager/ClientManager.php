@@ -2,6 +2,7 @@
 
 namespace OC\FideliteBundle\Manager;
 
+use Doctrine\ORM\Cache\Persister\Collection\NonStrictReadWriteCachedCollectionPersister;
 use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Client;
 use OC\FideliteBundle\Form\Type\ClientSearchType;
@@ -65,6 +66,8 @@ class ClientManager
         $request = $this->request->getCurrentRequest();
 
         $client = new Client();
+        $date = new \DateTime();
+        $client->setMailEnvoyeLe($date);
         $form = $this->form->create(ClientType::class, $client);
         $form->handleRequest($request);
 
