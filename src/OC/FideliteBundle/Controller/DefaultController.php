@@ -23,8 +23,9 @@ class DefaultController extends Controller {
 
         foreach ($clients as $client) {
             $event = new BirthdayEvent($client);
-            $this->get('event_dispatcher')->dispatch(BirthdayEvent::NAME, $event);
-            $event->stopPropagation();
+
+                $this->get('event_dispatcher')->dispatch(BirthdayEvent::NAME, $event);
+
        }
         return $this->render('base.html.twig');
     }

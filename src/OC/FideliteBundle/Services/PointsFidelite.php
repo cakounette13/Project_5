@@ -19,6 +19,7 @@ class PointsFidelite
         $points = $vente->getClient()->getPointsFidelite();
         $montant = $vente->getMontantVente();
         $points = $montant * 6/100;
+        $points = number_format($points,2);
         return $points;
     }
 }

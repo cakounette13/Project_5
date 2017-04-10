@@ -113,23 +113,55 @@ class VenteManager
 
         $venteOld = $this->em->getRepository(Vente::class)->findOneBy(array('id' => $request->get('id')));
         $ancienPointsUtilises = $venteOld->getPointsFideliteUtilises();
+        $ancienClient = $venteOld->getCLient();
         $editForm = $this->form->create(VenteType::class, $vente);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $pointsVente = $this->pointsFidelite->calculPointsFideliteParVente($vente);
-            $ancienPointsVente = $vente->getPointFideliteVente();
-            $AjustPointsClient = $pointsVente - $ancienPointsVente;
-            $cumulPointsClient = $vente->getClient()->getPointsFidelite();
-            $ajustPointsUtilises = $vente->getPointsFideliteUtilises() - $ancienPointsUtilises;
-            $pointsClient = $cumulPointsClient + $AjustPointsClient - $ajustPointsUtilises;
-            $client = $vente->getClient();
-            $client->setPointsFidelite($pointsClient);
-            $vente->setPointFideliteVente($pointsVente);
-            $this->em->flush($vente);
-            $this->em->flush($client);
+            $newClient = $vente->getClient();
+            // Si modification du client
+            if ($ancienClient != $newClient ) {
+                // On retire à l'ancien client la vente
+                $nbrVentes = $ancienClient->getNbrVentes()-1;
+                $ancienPointsVente = $vente->getPointFideliteVente();
+                $cumulPointsAncienClient = $ancienClient->getPointsFidelite() - $ancienPointsVente + $ancienPointsUtilises;
+                $ancienClient->setNbrVentes($nbrVentes);
+                $ancienClient->setPointsFidelite($cumulPointsAncienClient);
+                $newClient->addVente($vente);
+                $newClient->ajouteNbrVentes();
+                $pointsVente = $this->pointsFidelite->calculPointsFideliteParVente($vente);
+                $oldPointsNewClient = $vente->getClient()->getPointsFidelite();
+                $pointsUtilises = $vente->getPointsFideliteUtilises();
+                $ajustPointsNewClient = $pointsVente + $oldPointsNewClient - $pointsUtilises;
+                $newClient->setPointsFidelite($ajustPointsNewClient);
+                $vente->setPointFideliteVente($pointsVente);
+                $vente->setPointsFideliteUtilises($pointsUtilises);
 
-            $this->session->getFlashBag()->add('success', "Vente modifiée !");
+                $this->em->flush($ancienClient);
+                $this->em->flush($newClient);
+                $this->em->flush($vente);
+
+                $this->session->getFlashBag()->add('success', "Vente modifiée !");
+            } else {
+                // Ajuste points fidélités si montant de la vente modifié
+                $pointsVente = $this->pointsFidelite->calculPointsFideliteParVente($vente);
+                $ancienPointsVente = $vente->getPointFideliteVente();
+                // points sur la vente
+                $ajustPointsClient = $pointsVente - $ancienPointsVente;
+                // Cumul des points du client
+                $cumulPointsClient = $vente->getClient()->getPointsFidelite();
+                // Ajuste points utilisés modifiés
+                $ajustPointsUtilises = $vente->getPointsFideliteUtilises() - $ancienPointsUtilises;
+                $pointsClient = $cumulPointsClient + $ajustPointsClient - $ajustPointsUtilises;
+                $client = $vente->getClient();
+                $client->setPointsFidelite($pointsClient);
+                $vente->setPointFideliteVente($pointsVente);
+
+                $this->em->flush($vente);
+                $this->em->flush($client);
+
+                $this->session->getFlashBag()->add('success', "Vente modifiée !");
+            }
         }
         return $editForm;
     }

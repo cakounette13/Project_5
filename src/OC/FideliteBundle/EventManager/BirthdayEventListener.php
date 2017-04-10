@@ -22,17 +22,13 @@ class BirthdayEventListener
 
     public function activeEvent(BirthdayEvent $event)
     {
-        if ($event->isPropagationStopped()) {
-            return;
-        } else {
-            $dateNaissance = $event->getClient()->getDateNaissance();
-            $dateNaissance = $dateNaissance->format('d m');
-            $dateJour = date('d m');
+        $dateNaissance = $event->getClient()->getDateNaissance();
+        $dateNaissance = $dateNaissance->format('d m');
+        $dateJour = date('d m');
 
-            // Vérification si date d'anniversaire client égale date du jour
-            if ($dateNaissance == $dateJour) {
-                $this->email->envoiMail($event->getClient());
-            }
+        // Vérification si date d'anniversaire client égale date du jour
+        if ($dateNaissance == $dateJour) {
+            $this->email->envoiMail($event->getClient());
         }
     }
 }

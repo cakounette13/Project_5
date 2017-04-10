@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cd4992a7affa5febb023f2fa840b728",
+    "content-hash": "76350eb871b17621955ce0fa75fd7cfe",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1794,6 +1794,55 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "ras/flash-alert-bundle",
+            "version": "2.1.1",
+            "target-dir": "Ras/Bundle/FlashAlertBundle/",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rasanga/FlashAlertBundle.git",
+                "reference": "7a374da80ec9509ae36d3177904efa62619ff5db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rasanga/FlashAlertBundle/zipball/7a374da80ec9509ae36d3177904efa62619ff5db",
+                "reference": "7a374da80ec9509ae36d3177904efa62619ff5db",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/symfony": ">=2.1",
+                "twig/twig": "~1.12"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Ras\\Bundle\\FlashAlertBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rasanga Perera",
+                    "email": "rasangaperera@gmail.com"
+                }
+            ],
+            "description": "FlashAlertBundle provides a simplified way to handle (add/display) Symfony flash messages. Client side scripts are written in pure JavaScript.",
+            "homepage": "http://rasanga.github.io/FlashAlertBundle/",
+            "keywords": [
+                "alert",
+                "bundle",
+                "feedback",
+                "flash",
+                "message",
+                "notification",
+                "symfony"
+            ],
+            "time": "2016-01-03T21:38:53+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
