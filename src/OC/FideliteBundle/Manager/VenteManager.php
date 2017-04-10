@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Vente;
 use OC\FideliteBundle\Form\Type\VenteType;
 use OC\FideliteBundle\Services\PointsFidelite;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;

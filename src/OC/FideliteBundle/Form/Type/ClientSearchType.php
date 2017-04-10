@@ -7,7 +7,6 @@ use OC\FideliteBundle\Repository\ClientRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClientSearchType extends AbstractType
 {

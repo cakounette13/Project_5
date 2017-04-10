@@ -2,24 +2,17 @@
 
 namespace OC\FideliteBundle\Manager;
 
-use Doctrine\ORM\Cache\Persister\Collection\NonStrictReadWriteCachedCollectionPersister;
 use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Client;
 use OC\FideliteBundle\Form\Type\ClientSearchType;
 use OC\FideliteBundle\Form\Type\ClientType;
 use OC\FideliteBundle\Services\Email;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ClientManager
 {
-    /**
-     * @var Email
-     */
-    private $email;
-
     /**
      * @var EntityManager
      */
@@ -47,15 +40,13 @@ class ClientManager
      * @param FormFactory $form
      * @param RequestStack $request
      * @param Session $session
-     * @param Email $email
      */
-    public function __construct(EntityManager $em, FormFactory $form, RequestStack $request, Session $session, Email $email)
+    public function __construct(EntityManager $em, FormFactory $form, RequestStack $request, Session $session)
     {
         $this->em = $em;
         $this->form = $form;
         $this->request = $request;
         $this->session = $session;
-        $this->email = $email;
     }
 
     /**
@@ -127,7 +118,6 @@ class ClientManager
     public function delete($client) {
         $client = $this->em->getRepository('OCFideliteBundle:Client')->find($client);
         $nbrVentes = $client->getNbrventes();
-        $ventes = $this->em->getRepository('OCFideliteBundle:Vente')->getAllVentesByClient($client);
         if ($nbrVentes == 0) {
             $this->em->remove($client);
             $this->em->flush($client);
