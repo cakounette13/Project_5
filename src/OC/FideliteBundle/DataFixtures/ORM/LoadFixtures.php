@@ -22,7 +22,7 @@ class LoadFixtures implements FixtureInterface
         $client->setEmail('carinedelrieux@gmail.com');
         $client->setNbrVentes('4');
         $client->setPointsFidelite('22.5');
-        $client->setMailEnvoyeLe('14/02/2017');
+        $client->setMailEnvoyeLe(\DateTime::createFromFormat('d/m/Y','14/02/2017'));
 
         $vente1 = new Vente();
         $vente1->setClient($client);
@@ -61,7 +61,7 @@ class LoadFixtures implements FixtureInterface
         $client2->setVille('Marseille');
         $client2->setPortable('0663704309');
         $client2->setEmail('didierdelrieux@gmail.com');
-        $client2->setMailEnvoyeLe('14/02/2017');
+        $client2->setMailEnvoyeLe(\DateTime::createFromFormat('d/m/Y','14/02/2017'));
 
         $client3 = new Client();
         $client3->setDenomination('Société');
@@ -75,7 +75,7 @@ class LoadFixtures implements FixtureInterface
         $client3->setEmail('didierdelrieux@free.fr');
         $client3->setNbrVentes('1');
         $client3->setPointsFidelite('15.69');
-        $client3->setMailEnvoyeLe('14/02/2017');
+        $client3->setMailEnvoyeLe(\DateTime::createFromFormat('d/m/Y','14/02/2017'));
 
         $vente5 = new Vente();
         $vente5->setClient($client3);

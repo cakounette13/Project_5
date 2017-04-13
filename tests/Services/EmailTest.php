@@ -1,23 +1,58 @@
 <?php
 namespace Tests\Services;
 
+use OC\FideliteBundle\Entity\Client;
+use OC\FideliteBundle\Services\Email;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class EmailTest extends WebTestCase
 {
+    /**
+     * @var Email
+     */
+    private $email;
+
+    /**
+     * @var ClientRepository
+     *
+     */
+    private $clientRepository;
+
+    public function setUp()
+    {
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $this->clientRepository = $kernel->getContainer()
+            ->get('doctrine.orm.entity_manager')
+            ->getRepository('OCFideliteBundle:Client');
+//        parent::setUp(); //
+//        $client = new Client();
+//        $client->setNom('DELRIEUX');
+//        $client->setPrenom('Carine');
+//        $client->setSociete('WEBB');
+//        $client->setCodePostal('06200');
+//        $client->setVille('Nice');
+//        $client->setPortable('0666666666');
+//        $client->setDateNaissance('NOW');
+//        $client->setEmail('c@gmail.com');
+//        $client->setMailEnvoyeLe('11/04/2017');
+    }
+
     public function testEnvoiMailI()
     {
-        $client = static::createClient();
+        $requete = static::createClient();
 
-        // Enable the profiler for the next request (it does nothing if the profiler is not available)
-        $client->enableProfiler();
+        $clients = $this->clientRepository->findAll();
+        $client = $clients['0'];
+        $requete->getContainer()->get('oc_fidelite.email')->envoiMail($client);
 
-        $crawler = $client->request('POST', '/');
-
-        $mailCollector = $client->getProfile()->getCollector('swiftmailer');
+//        $requete->enableProfiler();
+//
+//        $crawler = $requete->request('GET', '/');
+        $mailCollector = $requete->getProfile()->getCollector('swiftmailer');
 
         // Check that an email was sent
-        $this->assertEquals(1, $mailCollector->getMessageCount());
+        $this->assertEquals(1, $this->getMessageCount());
 
         $collectedMessages = $mailCollector->getMessages();
         $message = $collectedMessages[0];

@@ -41,7 +41,7 @@ class ClientControllerTest extends WebTestCase
             'client[prenom]' => 'Bernard.',
             'client[societe]' => 'Bourvence',
             'client[codePostal]' => '06200',
-            'client[ville]' => 'ville',
+            'client[ville]' => 'Plan de Cuques',
             'client[portable]' => '0699887766',
             'client[dateNaissance]' => '14/02/1972',
             'client[email]' => 'c@gmail.com',

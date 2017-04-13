@@ -7,16 +7,6 @@ use OC\FideliteBundle\Entity\Vente;
 
 class VenteTest extends \PHPUnit_Framework_TestCase
 {
-    public function testNewVente()
-    {
-        $vente = new Vente();
-
-        $this->assertEquals(null, $vente->getClient());
-        $this->assertEquals(null, $vente->getDateVente());
-        $this->assertEquals(null, $vente->getMontantVente());
-        $this->assertEquals(null, $vente->getPointsFideliteUtilises());
-    }
-
     public function testSetVente()
     {
         $vente = new Vente();

@@ -36,7 +36,7 @@ class ClientController extends Controller
      * @Route("/new", name="new_clt")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction()
     {
         $form = $this->get('oc_fidelite.client_manager')->add();
 
@@ -70,7 +70,7 @@ class ClientController extends Controller
      * @Route("/{id}/edit", name="edit_clt")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Client $client)
+    public function editAction(Client $client)
     {
         $editForm = $this->get('oc_fidelite.client_manager')->update($client);
 
@@ -89,7 +89,7 @@ class ClientController extends Controller
      *
      * @Route("/suppr/{id}", name="delete_clt")
      */
-    public function deleteAction(Request $request, Client $client)
+    public function deleteAction(Client $client)
     {
         $this->get('oc_fidelite.client_manager')->delete($client);
 
@@ -102,7 +102,7 @@ class ClientController extends Controller
      * @Route("/recap/all/", name="recap_clt")
      * @Method({"GET", "POST"})
      */
-    public function recapAction(Request $request)
+    public function recapAction()
     {
         $clients = $this->get('oc_fidelite.client_manager')->readAll();
         $form = $this->get('oc_fidelite.client_manager')->recap($clients);
@@ -126,7 +126,7 @@ class ClientController extends Controller
      * @Route("/recap/all/detail/{id}", name="recap_clt_detail")
      * @Method({"GET"})
      */
-    public function recapDetailAction(Request $request, $id)
+    public function recapDetailAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('OCFideliteBundle:Client')->find($id);

@@ -45,5 +45,7 @@ class VenteControllerTest extends WebTestCase
 
         // Soumission du formulaire
         $client->submit($form);
+        $client->followRedirect();
+        $this->assertEquals('OC\FideliteBundle\Controller\DefaultController::indexAction', $client->getRequest()->attributes->get('_controller'));
     }
 }

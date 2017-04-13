@@ -5,7 +5,6 @@ namespace OC\FideliteBundle\Controller;
 use OC\FideliteBundle\EventManager\BirthdayEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends Controller {
 

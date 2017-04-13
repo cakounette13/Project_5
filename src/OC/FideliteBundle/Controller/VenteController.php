@@ -6,7 +6,7 @@ use OC\FideliteBundle\Entity\Vente;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
+
 
 /**
  * Vente controller.
@@ -36,7 +36,7 @@ class VenteController extends Controller
      * @Route("/new", name="new_vte")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request) {
+    public function newAction() {
 
         $form = $this->get('oc_fidelite.vente_manager')->add();
 
@@ -70,7 +70,7 @@ class VenteController extends Controller
      * @Route("/{id}/edit", name="edit_vte")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Vente $vente)
+    public function editAction(Vente $vente)
     {
         $editForm = $this->get('oc_fidelite.vente_manager')->update($vente);
 
@@ -89,7 +89,7 @@ class VenteController extends Controller
      *
      * @Route("/suppr/{id}", name="delete_vte")
      */
-    public function deleteAction(Request $request, Vente $vente)
+    public function deleteAction(Vente $vente)
     {
         $this->get('oc_fidelite.vente_manager')->delete($vente);
 
