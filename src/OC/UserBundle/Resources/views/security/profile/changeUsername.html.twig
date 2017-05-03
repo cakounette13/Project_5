@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h2 class="text-center">Changement du nom de compte</h2>
+
+    {% for response in app.session.flashbag.get('response') %}
+        <div class="alert alert-warning alert-dismissible row col-xs-12 text-center">
+            <button class="text-center" type="button" data-dismiss="alert" aria-label="close"><span class="text-center" aria-hidden="true">{{ response }}</span></button>
+        </div>
+    {% endfor %}
+
+    {{ form_start(form, {'attr': {'class': "text-center formulaire-container"} }) }}
+    <div class="text-center form-group">
+        {{ form_row(form.username, {'label' : 'Nouveau nom de compte', 'attr':{'placeholder': 'nouveau nom de compte', 'class': 'text-center'}}) }}
+    </div>
+    <div>
+        <input class="btn-know" type="submit" value="Changer de nom de compte" />
+    </div>
+    {{ form_end(form) }}
+    <div class="text-center">
+        <a href="{{ path('security_profile') }}"><button type="button" class="btn-default">retour</button></a>
+    </div>
+{% endblock %}

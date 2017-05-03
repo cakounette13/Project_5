@@ -1,24 +1,32 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/security.html
 security:
 
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        OC\UserBundle\Entity\User: bcrypt
+
     providers:
-        in_memory:
-            memory: ~
+        database_users:
+            entity: { class: OC\UserBundle\Entity\User, property: email }
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
         main:
             anonymous: ~
-            # activate different ways to authenticate
+            guard:
+                authenticators:
+                    - security.login_form_authentication
+                    - security.change_password_via_token_authentication
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+                entry_point: security.login_form_authentication
+            logout:
+                path: /deconnexion
+                target: /
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    role_hierarchy:
+        ROLE_ADMIN:      [ROLE_ADMIN, ROLE_USER]
+        ROLE_USER:       [ROLE_USER]
+
+    access_control:
+        - { path: /inscription, allow_if: !has_role('ROLE_USER') }
+        - { path: /connexion, allow_if: !has_role('ROLE_USER') }

@@ -40,3 +40,58 @@ services:
             - "@oc_fidelite.email"
         tags:
             - { name: kernel.event_listener, event: 'birthday_event' , method: 'activeEvent'}
+
+#api reset password:
+  #Authentication
+    security.change_password_via_token_authentication:
+        class: OC\UserBundle\Security\ResetPassword\ResetPasswordAuthenticator
+        arguments: [ "@doctrine.orm.entity_manager", "@form.factory", "@router", "@security.password_encoder"]
+
+  #Mailer
+    security.reset_password_mailer:
+        class: OC\UserBundle\Mailer\Mailer
+        arguments: [ "@swiftmailer.mailer", "@twig" ]
+
+  #SendMail with token
+    security.reset_password_mailer_authenticator:
+        class: OC\UserBundle\EventListener\ResetPasswordMailer
+        arguments: [ "@form.factory", "@doctrine.orm.entity_manager", "@security.reset_password_mailer", "@session"]
+
+  #Form Authentication
+    security.login_form_authentication:
+        class: OC\UserBundle\Security\Login\LoginFormAuthenticator
+        arguments: [ "@form.factory","@doctrine.orm.entity_manager","@router", "@security.password_encoder" ]
+
+  #Registration Form
+    security.registration_form:
+        class: OC\UserBundle\Security\Register\RegisterFormAuthenticator
+        arguments: [ "@form.factory", "@doctrine.orm.entity_manager", "@session", "@security.authentication.guard_handler", "@security.login_form_authentication" ]
+
+  #Change password Authentication
+    security.change_password:
+        class: OC\UserBundle\Security\ChangePassword\ChangePasswordService
+        arguments: [ "@form.factory", "@doctrine.orm.entity_manager", "@security.password_encoder", "@security.token_storage", "@validator", "@session"]
+
+#Users services:
+    change_username:
+        class: OC\UserBundle\Service\ChangeUsername
+        arguments: [ "@form.factory", "@doctrine.orm.entity_manager", "@security.token_storage", "@session", "@router" ]
+
+
+    change_username_form:
+        class: OC\UserBundle\Form\ChangeUsernameType
+        arguments: [ "@doctrine.orm.entity_manager", "@session", "@security.token_storage" ]
+        tags:
+            - { name: form.type }
+
+#Hash password
+    doctrine.hash_password_listener:
+        class: OC\UserBundle\EventListener\HashPasswordListener
+        arguments: [ '@security.password_encoder' ]
+        tags:
+            - { name: doctrine.event_subscriber }
+
+#Admin services:
+    delete_user:
+        class: OC\UserBundle\Service\DeleteUser
+        arguments: [ "@doctrine.orm.entity_manager","@session" ]

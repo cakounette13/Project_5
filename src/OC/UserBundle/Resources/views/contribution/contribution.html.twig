@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent ()}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFroHBrDo8zJfboSR3r5Z_YWnLv9HEaxw&libraries=geometry,visualization"></script>
+{% endblock %}
+{% block title %}Contribution - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h2 class="text-center" id="title">Contributions</h2>
+    <div id="validation"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('dist/validateBirds.js') }}"></script>
+{% endblock %}

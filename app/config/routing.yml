@@ -2,3 +2,11 @@ oc_fidelite:
     resource: "@OCFideliteBundle/Controller/"
     type:     annotation
     prefix:   /
+
+oc_user:
+    resource: "@OCUserBundle/Controller/"
+    type: annotation
+    prefix: /
+
+logout:
+    path: /deconnexion

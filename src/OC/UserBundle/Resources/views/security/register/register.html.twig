@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block formTitle %}<h1>Inscription</h1>{% endblock %}
+
+    <div class="row">
+        <div class="col-xs-10 col-md-6 col-lg-7">
+            <div class="well">
+
+            <div class="col-xs-12 text-center">
+
+            </div>
+            {{ form_start(form, {'attr': {'class': 'formulaire-container text-center '}}) }}
+                <div class="form-group ">
+                    {{ form_row(form.username, {'label' : 'Votre nom d\'utilisateur','attr': {'placeholder': 'Entrez votre nom', 'class': 'text-center'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.email, {'label' : 'Votre email', 'attr': {'placeholder': 'Entrez votre e-mail', 'class': 'text-center'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.plainPassword.first, {'label' : 'Votre mot de passe', 'attr': {'placeholder': 'Mot de passe', 'class': 'text-center'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.plainPassword.second, {'label' : 'repetez votre mot de passe', 'attr': {'placeholder': 'Confirmation Mot de passe', 'class': 'text-center'}}) }}
+                </div>
+                <div>
+                    <input class="btn btn-default btn-lg active" type="submit" value= "Je m'inscris" />
+                </div>
+            {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
