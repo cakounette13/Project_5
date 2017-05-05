@@ -28,27 +28,41 @@ class ChangePasswordAuthenticator extends AbstractGuardAuthenticator {
 	 * @var FormFactory
 	 */
 	private $formFactory;
+
 	/**
 	 * @var EntityManager
 	 */
 	private $em;
+
 	/**
 	 * @var RouterInterface
 	 */
 	private $router;
+
 	/**
 	 * @var UserPasswordEncoder
 	 */
 	private $passwordEncoder;
+
 	/**
 	 * @var TokenStorage
 	 */
 	private $token;
+
 	/**
 	 * @var Session
 	 */
 	private $session;
 
+    /**
+     * ChangePasswordAuthenticator constructor.
+     * @param FormFactory $formFactory
+     * @param EntityManager $em
+     * @param RouterInterface $router
+     * @param UserPasswordEncoder $passwordEncoder
+     * @param TokenStorage $token
+     * @param Session $session
+     */
 	public function __construct(FormFactory $formFactory, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder, TokenStorage $token, Session $session) {
 		$this->formFactory = $formFactory;
 		$this->em = $em;
@@ -58,6 +72,10 @@ class ChangePasswordAuthenticator extends AbstractGuardAuthenticator {
 		$this->session = $session;
 	}
 
+    /**
+     * @param Request $request
+     * @return array|null
+     */
 	public function getCredentials( Request $request ) {
 		$form = $this->formFactory->create(ChangePassword::class);
 		$form->handleRequest($request);
@@ -111,10 +129,6 @@ class ChangePasswordAuthenticator extends AbstractGuardAuthenticator {
 
 	public function onAuthenticationSuccess( Request $request, TokenInterface $token, $providerKey )
 	{
-		dump($this->session->getFlashBag()->get('error'));
-		dump($this->session->getFlashBag()->get('success'));
-		dump($this->session->getFlashBag()->has('error'));
-		dump($this->session->getFlashBag()->keys(['success']));
 		$succes = $this->session->getFlashBag()->get('success');
 
 		if(!is_null($succes))
@@ -124,7 +138,6 @@ class ChangePasswordAuthenticator extends AbstractGuardAuthenticator {
 		}
 		$url = $this->router->generate('security_change_password');
 		return new RedirectResponse($url);
-
 	}
 
 	public function supportsRememberMe() {
@@ -133,5 +146,4 @@ class ChangePasswordAuthenticator extends AbstractGuardAuthenticator {
 
 	public function start( Request $request, AuthenticationException $authException = null ) {
 	}
-
 }

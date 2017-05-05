@@ -4,7 +4,6 @@ namespace OC\UserBundle\Mailer;
 
 class Mailer
 {
-
 	/**
 	 * @var \Twig_Environment
 	 */
@@ -15,12 +14,21 @@ class Mailer
 	 */
 	private $transport;
 
+    /**
+     * Mailer constructor.
+     * @param \Swift_Mailer $transport
+     * @param \Twig_Environment $twig
+     */
 	public function __construct(\Swift_Mailer $transport, \Twig_Environment $twig)
 	{
 		$this->twig = $twig;
 		$this->transport = $transport;
 	}
 
+    /**
+     * @param $email
+     * @param $token
+     */
 	public function sendEmailForgePassword($email, $token)
 	{
 		$message =  \Swift_Message::newInstance();
@@ -34,6 +42,5 @@ class Mailer
 			)
 		;
 		$this->transport->send($message);
-
 	}
 }

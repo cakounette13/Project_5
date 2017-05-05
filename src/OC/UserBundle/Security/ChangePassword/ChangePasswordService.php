@@ -12,33 +12,47 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use OC\UserBundle\Entity\User;
 use OC\UserBundle\Form\ChangePassword;
 
-class ChangePasswordService {
-
+class ChangePasswordService
+{
 	/**
 	 * @var FormFactory
 	 */
 	private $formFactory;
+
 	/**
 	 * @var EntityManager
 	 */
 	private $em;
+
 	/**
 	 * @var UserPasswordEncoder
 	 */
 	private $passwordEncoder;
+
 	/**
 	 * @var TokenStorage
 	 */
 	private $token;
+
 	/**
 	 * @var Session
 	 */
 	private $session;
+
 	/**
 	 * @var ValidatorInterface
 	 */
 	private $validator;
 
+    /**
+     * ChangePasswordService constructor.
+     * @param FormFactory $formFactory
+     * @param EntityManager $em
+     * @param UserPasswordEncoder $passwordEncoder
+     * @param TokenStorage $token
+     * @param ValidatorInterface $validator
+     * @param Session $session
+     */
 	public function __construct(FormFactory $formFactory, EntityManager $em, UserPasswordEncoder $passwordEncoder, TokenStorage $token, ValidatorInterface $validator, Session $session) {
 		$this->formFactory = $formFactory;
 		$this->em = $em;

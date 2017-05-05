@@ -7,16 +7,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use OC\UserBundle\Entity\User;
 
-class DeleteUser {
+class DeleteUser
+{
 	/**
 	 * @var Session
 	 */
 	private $session;
+
 	/**
 	 * @var EntityManager
 	 */
 	private $em;
 
+    /**
+     * DeleteUser constructor.
+     * @param EntityManager $em
+     * @param Session $session
+     */
 	public function __construct(EntityManager $em, Session $session)
 	{
 		$this->session = $session;

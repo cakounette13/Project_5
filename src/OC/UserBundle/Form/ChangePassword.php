@@ -10,7 +10,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 
-class ChangePassword extends AbstractType {
+class ChangePassword extends AbstractType
+{
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
 	public function buildForm( FormBuilderInterface $builder, array $options ) {
 		$builder
 			->add( 'plainPassword', RepeatedType::class, [
@@ -25,9 +30,15 @@ class ChangePassword extends AbstractType {
 			] );
 	}
 
+    /**
+     * @param OptionsResolver $resolver
+     */
 	public function configureOptions( OptionsResolver $resolver ){
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'user_bundle_change_password';

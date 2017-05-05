@@ -19,28 +19,42 @@ class ChangeUsernameType extends AbstractType
 	 * @var EntityManager
 	 */
 	private $em;
+
 	/**
 	 * @var Session
 	 */
 	private $session;
+
 	/**
 	 * @var TokenStorage
 	 */
 	private $token;
 
+    /**
+     * ChangeUsernameType constructor.
+     * @param EntityManager $em
+     * @param Session $session
+     * @param TokenStorage $token
+     */
 	public function __construct(EntityManager $em, Session $session, TokenStorage $token)
 	{
-
 		$this->em = $em;
 		$this->session = $session;
 		$this->token = $token;
 	}
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder->add('username', TextType::class);
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
 	    $resolver->setDefaults([
@@ -55,6 +69,9 @@ class ChangeUsernameType extends AbstractType
 	    ]);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'user_bundle_change_username';

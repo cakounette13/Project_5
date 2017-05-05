@@ -12,6 +12,10 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class ResetPassword extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
@@ -31,6 +35,9 @@ class ResetPassword extends AbstractType
     {
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'user_bundle_reset_password';

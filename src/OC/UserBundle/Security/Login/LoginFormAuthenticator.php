@@ -18,7 +18,6 @@ use Symfony\Component\Routing\RouterInterface;
 use OC\UserBundle\Entity\User;
 use OC\UserBundle\Form\LoginForm;
 
-
 class LoginFormAuthenticator extends AbstractGuardAuthenticator
 {
 	/**
@@ -41,6 +40,13 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 	 */
 	private $passwordEncoder;
 
+    /**
+     * LoginFormAuthenticator constructor.
+     * @param FormFactory $formFactory
+     * @param EntityManager $em
+     * @param RouterInterface $router
+     * @param UserPasswordEncoder $passwordEncoder
+     */
 	public function __construct(FormFactory $formFactory, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder) {
 		$this->formFactory = $formFactory;
 		$this->em = $em;

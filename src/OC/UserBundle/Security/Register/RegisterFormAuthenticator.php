@@ -38,7 +38,14 @@ class RegisterFormAuthenticator
 	 */
 	private $authenticator;
 
-
+    /**
+     * RegisterFormAuthenticator constructor.
+     * @param FormFactory $form
+     * @param EntityManager $em
+     * @param Session $session
+     * @param GuardAuthenticatorHandler $handler
+     * @param LoginFormAuthenticator $authenticator
+     */
 	public function __construct(FormFactory $form, EntityManager $em, Session $session, GuardAuthenticatorHandler $handler, LoginFormAuthenticator $authenticator)
 	{
 		$this->form = $form;

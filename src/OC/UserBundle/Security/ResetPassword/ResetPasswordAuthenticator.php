@@ -40,6 +40,13 @@ class ResetPasswordAuthenticator extends AbstractGuardAuthenticator
 	 */
 	private $form;
 
+    /**
+     * ResetPasswordAuthenticator constructor.
+     * @param EntityManager $em
+     * @param FormFactory $form
+     * @param RouterInterface $router
+     * @param UserPasswordEncoder $passwordEncoder
+     */
 	public function __construct( EntityManager $em, FormFactory $form, RouterInterface $router, UserPasswordEncoder $passwordEncoder) {
 		$this->em = $em;
 		$this->router = $router;

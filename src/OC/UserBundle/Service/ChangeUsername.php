@@ -16,23 +16,35 @@ class ChangeUsername
 	 * @var FormFactory
 	 */
 	private $form;
+
 	/**
 	 * @var EntityManager
 	 */
 	private $em;
+
 	/**
 	 * @var TokenStorage
 	 */
 	private $token;
+
 	/**
 	 * @var Session
 	 */
 	private $session;
+
 	/**
 	 * @var RouterInterface
 	 */
 	private $router;
 
+    /**
+     * ChangeUsername constructor.
+     * @param FormFactory $form
+     * @param EntityManager $em
+     * @param TokenStorage $token
+     * @param Session $session
+     * @param RouterInterface $router
+     */
 	public function __construct(FormFactory $form, EntityManager $em, TokenStorage $token, Session $session, RouterInterface $router)
 	{
 		$this->form = $form;

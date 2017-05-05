@@ -10,25 +10,35 @@ use OC\UserBundle\Entity\User;
 use OC\UserBundle\Form\ForgetPasswordForm;
 use OC\UserBundle\Mailer\Mailer;
 
-class ResetPasswordMailer {
-
+class ResetPasswordMailer
+{
 	/**
 	 * @var FormFactory
 	 */
 	private $form;
+
 	/**
 	 * @var EntityManager
 	 */
 	private $em;
+
 	/**
 	 * @var Mailer
 	 */
 	private $mailer;
+
 	/**
 	 * @var Session
 	 */
 	private $session;
 
+    /**
+     * ResetPasswordMailer constructor.
+     * @param FormFactory $form
+     * @param EntityManager $em
+     * @param Mailer $mailer
+     * @param Session $session
+     */
 	public function __construct(FormFactory $form, EntityManager $em, Mailer $mailer, Session $session)
 	{
 		$this->form = $form;
@@ -37,6 +47,10 @@ class ResetPasswordMailer {
 		$this->session = $session;
 	}
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\Form\FormInterface
+     */
 	public function resetPasswordForm(Request $request)
 	{
 		$form = $this->form->create(ForgetPasswordForm::class);

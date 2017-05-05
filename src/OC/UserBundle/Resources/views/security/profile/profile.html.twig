@@ -14,21 +14,23 @@
                         <th>Email</th>
                     </tr>
                     </thead>
+
                     <tbody>
                     <tr>
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
                     </tr>
                     </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <a class="btn btn-default active" href={{ path("security_edit_profile") }}>Modifier le nom du compte</a>
-                <a class="btn btn-default active" href={{ path("security_change_password") }}>Modifier votre mot de passe</a>
-            </div>
+            </table>
         </div>
-    <div class="row">
-        <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
-    </div>
+
+        <div class="row">
+            <a class="btn btn-default active" href={{ path("security_edit_profile") }}>Modifier le nom du compte</a>
+            <a class="btn btn-default active" href={{ path("security_change_password") }}>Modifier votre mot de passe</a>
+        </div>
+
+        <div class="row">
+            <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
+        </div>
     </div>
 {% endblock %}

@@ -7,8 +7,12 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ForgetPasswordForm extends AbstractType {
-
+class ForgetPasswordForm extends AbstractType
+{
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
@@ -20,9 +24,11 @@ class ForgetPasswordForm extends AbstractType {
 	{
 	}
 
+    /**
+     * @return string
+     */
 	public function getName()
 	{
 		return 'user_bundle_login_form';
 	}
-
 }

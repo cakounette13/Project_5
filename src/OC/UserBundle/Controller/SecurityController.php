@@ -1,4 +1,5 @@
 <?php
+
 namespace OC\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -38,7 +39,6 @@ class SecurityController extends Controller
 				'main'
 			);
 		}
-
 		return [ 'form'  => $registrationForm->createView() ];
 	}
 
@@ -74,7 +74,6 @@ class SecurityController extends Controller
 		$authenticationUtils = $this->get('security.authentication_utils');
 		$form = $this->createForm(ResetPassword::class);
 		$error = $authenticationUtils->getLastAuthenticationError();
-
 		return [
 			'form' => $form->createView(),
 			'error' => $error

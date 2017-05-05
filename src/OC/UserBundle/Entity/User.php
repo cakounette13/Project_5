@@ -21,6 +21,7 @@ class User implements UserInterface
 	 * @ORM\Column(type="integer")
 	 */
 	private $id;
+
 	/**
 	 * @ORM\Column(type="string", unique=true)
 	 * @Assert\Email(
@@ -28,6 +29,7 @@ class User implements UserInterface
 	 * )
 	 */
 	private $email;
+
 	/**
 	 * The encoded password
 	 * @ORM\Column(type="string")
@@ -70,6 +72,9 @@ class User implements UserInterface
 		return $this->role;
 	}
 
+    /**
+     * @return array
+     */
     public function getRoles() {
         return array($this->getRole());
     }
@@ -94,16 +99,25 @@ class User implements UserInterface
 		return $this->email;
 	}
 
+    /**
+     * @param $email
+     */
 	public function setEmail($email)
 	{
 		$this->email = $email;
 	}
 
+    /**
+     * @param $password
+     */
 	public function setPassword($password)
 	{
 		$this->password = $password;
 	}
 
+    /**
+     * @param $plainPassword
+     */
 	public function setPlainPassword($plainPassword)
 	{
 		$this->plainPassword = $plainPassword;
@@ -114,9 +128,6 @@ class User implements UserInterface
 		return $this->plainPassword;
 	}
 
-	/**
-	 * @return mixed
-	 */
 	public function getId() {
 		return $this->id;
 	}
@@ -146,9 +157,6 @@ class User implements UserInterface
 		return $this->username;
 	}
 
-	/**
-	 * @return mixed
-	 */
 	public function getApiToken() {
 		return $this->apiToken;
 	}
