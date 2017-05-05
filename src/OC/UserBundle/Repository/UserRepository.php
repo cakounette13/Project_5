@@ -3,7 +3,6 @@
 namespace OC\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserRepository extends EntityRepository
 {

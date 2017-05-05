@@ -15,7 +15,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Routing\RouterInterface;
-use OC\UserBundle\Entity\User;
 use OC\UserBundle\Form\LoginForm;
 
 class LoginFormAuthenticator extends AbstractGuardAuthenticator

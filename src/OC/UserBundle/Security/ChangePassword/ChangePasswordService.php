@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use OC\UserBundle\Entity\User;
 use OC\UserBundle\Form\ChangePassword;
 
 class ChangePasswordService

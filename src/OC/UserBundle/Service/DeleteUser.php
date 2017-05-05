@@ -37,7 +37,7 @@ class DeleteUser
 		$user = $userManager->findOneBy(['id' => $userId]);
 		$datas = $this->em->getRepository('OCUserBundle:User')->findById($userId);
 
-        if ($datas != null) {
+        if ($datas !== null) {
             return $this->session->getFlashBag()->add('warning', 'Suppression impossible car l\'utilisateur '.$user->getUsername().' est relié à une vente');
         } elseif ($user instanceof User)
 		{

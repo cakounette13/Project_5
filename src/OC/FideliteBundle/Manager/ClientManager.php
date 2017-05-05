@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use OC\FideliteBundle\Entity\Client;
 use OC\FideliteBundle\Form\Type\ClientSearchType;
 use OC\FideliteBundle\Form\Type\ClientType;
-use OC\FideliteBundle\Services\Email;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
