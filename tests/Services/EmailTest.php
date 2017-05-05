@@ -29,7 +29,7 @@ class EmailTest extends WebTestCase
         $client->setCodePostal('06200');
         $client->setVille('Nice');
         $client->setPortable('0666666664');
-        $client->setDateNaissance(\DateTime::createFromFormat('d/m/Y','28/04/2017')); // Mettre la date du jour du test
+        $client->setDateNaissance(\DateTime::createFromFormat('d/m/Y','05/05/2017')); // Mettre la date du jour du test
         $client->setEmail('carine@gmail.com');
         $client->setMailEnvoyeLe(\DateTime::createFromFormat('d/m/Y','30/03/2017'));
         $this->em->persist($client);

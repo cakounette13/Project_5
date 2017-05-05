@@ -27,10 +27,21 @@ class VenteControllerTest extends WebTestCase
 
     public function testCompleteScenario()
     {
-        // Création d'une nouvelle vente
         $client = static::createClient();
 
+        // Connexion à la base de données avec ses identifiants
         $crawler = $client->request('GET', '/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
+        $link = $crawler->filter('a:contains("Connexion")')->link();
+        $crawler = $client->click($link);
+
+        $form = $crawler->selectButton('Connexion')->form(array(
+            'login_form[_username]'=> 'carine',
+            'login_form[_password]' => 'qwerty'
+        ));
+        $client->submit($form);
+        $crawler = $client->request('POST', '/');
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
         $link = $crawler->selectLink('Nouvelle')->link();
         $crawler = $client->click($link);

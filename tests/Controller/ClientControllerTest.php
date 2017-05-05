@@ -28,12 +28,23 @@ class ClientControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        // Créer un nouveau client
+        // Connexion à la base de données avec ses identifiants
         $crawler = $client->request('GET', '/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
+        $link = $crawler->filter('a:contains("Connexion")')->link();
+        $crawler = $client->click($link);
+
+        $form = $crawler->selectButton('Connexion')->form(array(
+            'login_form[_username]'=> 'carine',
+            'login_form[_password]' => 'qwerty'
+        ));
+        $client->submit($form);
+        $crawler = $client->request('POST', '/');
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
         $link = $crawler->filter('a:contains("Nouveau client")')->link();
         $crawler = $client->click($link);
-
+        // Créer un nouveau client
         // Creation du formulaire
         $form = $crawler->selectButton('Valider')->form(array(
             'client[denomination]'=> 'Madame',
@@ -54,8 +65,19 @@ class ClientControllerTest extends WebTestCase
     public function testVueDeTousLesClients() {
         $client = static::createClient();
 
-        // Envoi vers vue Gestion des clients
+        // Connexion à la base de données avec ses identifiants
         $crawler = $client->request('GET', '/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
+        $link = $crawler->filter('a:contains("Connexion")')->link();
+        $crawler = $client->click($link);
+
+        $form = $crawler->selectButton('Connexion')->form(array(
+            'login_form[_username]'=> 'carine',
+            'login_form[_password]' => 'qwerty'
+        ));
+        $client->submit($form);
+        $crawler = $client->request('POST', '/');
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /");
         $link = $crawler->selectLink('Gestion des clients')->link();
         $crawler = $client->click($link);
