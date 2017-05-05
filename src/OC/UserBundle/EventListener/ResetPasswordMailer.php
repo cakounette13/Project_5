@@ -44,7 +44,7 @@ class ResetPasswordMailer {
 		if ($form->isValid())
 		{
 			$userToFind = $form->getData();
-			$user = $this->em->getRepository('UserBundle:User')->findOneBy(['email' => $userToFind]);
+			$user = $this->em->getRepository('OCUserBundle:User')->findOneBy(['email' => $userToFind]);
 			if ($user instanceof User)
 			{
 				$token = uniqid('token_', true);

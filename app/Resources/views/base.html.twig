@@ -29,22 +29,48 @@
         {% endfor %}
 
         <div class="row">
-            <a href={{ path("new_clt") }} role="button" class="btn btn-default btn-lg active">Nouveau</br> client</a>
-            <a href={{ path("all_clt") }} role="button" class="btn btn-default btn-lg active">Gestion</br> des
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                <a href={{ path("new_clt") }} role="button" class="btn btn-default btn-lg active">Nouveau</br> client</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href={{ path("all_clt") }} role="button" class="btn btn-default btn-lg active">Gestion</br> des
                 clients</a>
+                {% endif %}
+            {% else %}
+                <a href={{ path("security_login") }} role="button" class="btn btn-default btn-lg active">Connexion</a>
+                <a href={{ path("security_register") }} role="button" class="btn btn-default btn-lg active">Inscription</a>
+            {% endif %}
         </div>
 
         <div class="row">
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
             <a href={{ path("new_vte") }} role="button" class="btn btn-default btn-lg active">Nouvelle</br> vente</a>
+            {% if is_granted('ROLE_ADMIN') %}
             <a href={{ path("all_vte") }} role="button" class="btn btn-default btn-lg active">Gestion</br> des
                 ventes</a>
+            {% endif %}
+            {% endif %}
         </div>
 
         <div class="row">
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
             <a href="{{ path("recap_clt") }}" role="button" class="btn btn-default btn-lg active">Fidélité</br>par
                 client</a>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                <a href="{{ path("security_profile") }}" role="button" class="btn btn-default btn-lg active">Profil</br>de l'utilisateur</a>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path("admin") }}" role="button" class="btn btn-default btn-lg active">Gestion</br>des utilisateurs</a>
+            {% endif %}
         </div>
     </div>
+
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+        <a href={{ path("logout") }} role="button" class="btn btn-default">Déconnexion</a>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

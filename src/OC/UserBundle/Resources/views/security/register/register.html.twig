@@ -6,11 +6,7 @@
     <div class="row">
         <div class="col-xs-10 col-md-6 col-lg-7">
             <div class="well">
-
-            <div class="col-xs-12 text-center">
-
-            </div>
-            {{ form_start(form, {'attr': {'class': 'formulaire-container text-center '}}) }}
+                {{ form_start(form, {'attr': {'class': 'formulaire-container text-center '}}) }}
                 <div class="form-group ">
                     {{ form_row(form.username, {'label' : 'Votre nom d\'utilisateur','attr': {'placeholder': 'Entrez votre nom', 'class': 'text-center'}}) }}
                 </div>
@@ -28,6 +24,7 @@
                 </div>
             {{ form_end(form) }}
             </div>
+            <a role="button" class="btn btn-default active" href="{{ path('accueil') }}">Accueil</a>
         </div>
     </div>
 {% endblock %}

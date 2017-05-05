@@ -53,7 +53,6 @@ class ChangeUsername
 			$this->em->persist($data);
             $this->session->getFlashBag()->add('success', 'Modification prise en compte' );
 			$this->em->flush();
-
 		}
 		return $form->createView();
 	}

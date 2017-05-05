@@ -18,16 +18,23 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use OC\UserBundle\Form\ResetPassword;
 
-class ResetPasswordAuthenticator extends AbstractGuardAuthenticator {
+class ResetPasswordAuthenticator extends AbstractGuardAuthenticator
+{
+    /**
+     * @var EntityManager
+     */
 	private $em;
+
 	/**
 	 * @var RouterInterface
 	 */
 	private $router;
+
 	/**
 	 * @var UserPasswordEncoder
 	 */
 	private $passwordEncoder;
+
 	/**
 	 * @var FormFactory
 	 */
@@ -63,7 +70,7 @@ class ResetPasswordAuthenticator extends AbstractGuardAuthenticator {
 	public function getUser($credentials, UserProviderInterface $userProvider)
 	{
 		if ($credentials['token']) {
-			$user = $this->em->getRepository( 'UserBundle:User' )
+			$user = $this->em->getRepository( 'OCUserBundle:User' )
                  ->findOneBy( [ 'apiToken' => $credentials['token'] ] );
 			if ( !$user )
 			{
@@ -95,7 +102,7 @@ class ResetPasswordAuthenticator extends AbstractGuardAuthenticator {
 
 	public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
 	{
-		$url = $this->router->generate('bird');
+		$url = $this->router->generate('accueil');
 		return new RedirectResponse($url);
 	}
 
@@ -105,7 +112,7 @@ class ResetPasswordAuthenticator extends AbstractGuardAuthenticator {
 
 	public function start( Request $request, AuthenticationException $authException = null )
 	{
-		$url = $this->router->generate('bird');
+		$url = $this->router->generate('accueil');
 		return new RedirectResponse($url);
 	}
 }

@@ -1,32 +1,32 @@
 {% extends 'base.html.twig' %}
-{% block body %}
 
+{% block body %}
     {% block formTitle %}<h1>Connexion</h1>{% endblock %}
+
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
 <div class="row">
     <div class="col-xs-10 col-md-6 col-lg-7">
         <div class="well">
-
-                {% if error %}
-                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
                 {{ form_start(form, {'attr':{'class': "text-center formulaire-container"}}) }}
                 <div class="form-group">
-                    {{ form_row(form._username, {'label' : 'Nom d\'utilisateur'}) }}
+                    {{ form_row(form._username, {'label' : 'Nom d\'utilisateur', 'attr': {'placeholder': 'Entrez votre nom', 'class': 'text-center'}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form._password, {'label' : 'Mot de passe'}) }}
+                    {{ form_row(form._password, {'label' : 'Mot de passe', 'attr': {'placeholder': 'Entrez votre mot de passe', 'class': 'text-center'}}) }}
                 </div>
                 <div class="form-group">
-                <button type="submit" class="btn btn-default btn-lg active">Connexion</button>
-                {{ form_end(form) }}
+                    <button type="submit" class="btn btn-default btn-lg active">Connexion</button>
+                    {{ form_end(form) }}
                 </div>
-            <div class="text-center">
-                <a role="button" class="btn btn-default active" href="{{ path('security_send_email') }}">Mot de passe oublié</a><br>
-                <a role="button" class="btn btn-default active" href="{{ path('security_register') }}">Inscription</a>
+                <div class="text-center">
+                    <a role="button" class="btn btn-default active" href="{{ path('security_send_email') }}">Mot de passe oublié</a><br>
+                    <a role="button" class="btn btn-default active" href="{{ path('security_register') }}">Inscription</a>
+                </div>
             </div>
+            <a role="button" class="btn btn-default active" href="{{ path('accueil') }}">Accueil</a>
         </div>
     </div>
-</div>
-
 {% endblock %}

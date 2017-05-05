@@ -25,11 +25,11 @@ class SecurityController extends Controller
 		if ($registrationForm->isValid())
 		{
 			$registrationForm->getData();
-			$user->setRoles(['ROLE_USER']);
+			$user->setRole('ROLE_USER');
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($user);
 			$em->flush();
-			$this->addFlash('success', 'Bienvenue '. $user->getUsername() .'! Vous pouvez maintenant accéder à la base de données!');
+			$this->addFlash('success', 'Bienvenue '. $user->getUsername() .' ! Vous pouvez maintenant saisir dans la base de données !');
 			return $this->get('security.authentication.guard_handler')
 				->authenticateUserAndHandleSuccess(
 				$user,
@@ -46,11 +46,12 @@ class SecurityController extends Controller
 	 * @Route("/login", name="security_login")
 	 * @Template("OCUserBundle:security/login:login.html.twig")
 	 */
-	public function loginAction()
+	public function loginAction(Request $request)
 	{
 		$authenticationUtils = $this->get('security.authentication_utils');
 		$form = $this->createForm(LoginForm::class);
 		$error = $authenticationUtils->getLastAuthenticationError();
+        $form->handleRequest($request);
 		return [
 			'form'  => $form->createView(),
 			'error' => $error
@@ -81,7 +82,7 @@ class SecurityController extends Controller
 	}
 
 	/**
-	 * @Route("/connexion/send_reset_email", name="security_send_email")
+	 * @Route("/login/send_reset_email", name="security_send_email")
 	 * @Template("OCUserBundle:security/reset:reset_password_send_mail.html.twig")
 	 */
 	public function forgetPasswordSendEmailAction(Request $request)
@@ -98,7 +99,7 @@ class SecurityController extends Controller
 	public function profilAction()
 	{
 		$name = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
-		$user = $this->getDoctrine()->getRepository('UserBundle:User')->findOneBy(['username' => $name]);
+		$user = $this->getDoctrine()->getRepository('OCUserBundle:User')->findOneBy(['username' => $name]);
 		return [ 'user' => $user ];
 	}
 

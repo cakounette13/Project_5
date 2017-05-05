@@ -3,7 +3,6 @@
 namespace OC\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -46,9 +45,9 @@ class User implements UserInterface
 	private $plainPassword;
 
 	/**
-	 * @ORM\Column(type="json_array", nullable=true)
+	 * @ORM\Column(type="string", nullable=true)
 	 */
-	private $roles;
+	private $role;
 
 	/**
 	* @ORM\Column(type="string")
@@ -66,14 +65,14 @@ class User implements UserInterface
 		return $this->username;
 	}
 
-	public function getRoles()
+	public function getRole()
 	{
-		$roles = $this->roles;
-		if (!in_array('ROLE_USER', $roles)) {
-			$roles[] = 'ROLE_USER';
-		}
-		return $roles;
+		return $this->role;
 	}
+
+    public function getRoles() {
+        return array($this->getRole());
+    }
 
 	public function getPassword()
 	{
@@ -131,11 +130,11 @@ class User implements UserInterface
 	}
 
 	/**
-	 * @param mixed $roles
+	 * @param mixed $role
 	 * @return User
 	 */
-	public function setRoles( $roles ) {
-		$this->roles = $roles;
+	public function setRole( $role ) {
+		$this->role = $role;
 		return $this;
 	}
 

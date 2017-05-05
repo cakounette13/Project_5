@@ -25,14 +25,17 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 	 * @var FormFactory
 	 */
 	private $formFactory;
+
 	/**
 	 * @var EntityManager
 	 */
 	private $em;
+
 	/**
 	 * @var RouterInterface
 	 */
 	private $router;
+
 	/**
 	 * @var UserPasswordEncoder
 	 */
@@ -49,7 +52,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 	{
 		$form = $this->formFactory->create(LoginForm::class);
 		$form->handleRequest($request);
-		if ($request->getPathInfo() != '/connexion' || !$form->isSubmitted()) {
+		if ($request->getPathInfo() != '/login' || !$form->isSubmitted()) {
 			return null;
 		}
 		$data = $form->getData();
@@ -64,7 +67,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 	public function getUser($credentials, UserProviderInterface $userProvider)
 	{
 		$username = $credentials['username'];
-		return $this->em->getRepository('UserBundle:User')->findByUsernameOrEmail($username);
+		return $this->em->getRepository('OCUserBundle:User')->findByUsernameOrEmail($username);
 	}
 
 	public function checkCredentials($credentials, UserInterface $user)

@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 class AdminController extends Controller
 {
 	/**
-	 * @Route("/administration", name="admin")
-	 * @Template("OCUserBundle:administration/administration.html.twig")
+	 * @Route("/admin", name="admin")
+	 * @Template("OCUserBundle:administration:administration.html.twig")
 	 * @Security("has_role('ROLE_ADMIN')")
 	 */
 	public function usersAction()

@@ -28,7 +28,7 @@ class Mailer
 			->setFrom('carinedelrieux@gmail.com')
 			->setTo($email)
 			->setBody(
-				$this->twig->render('Emails/resetPassword.html.twig',
+				$this->twig->render('OCUserBundle:Emails:resetPassword.html.twig',
 					[ 'token' => $token ]),
 				'text/html'
 			)

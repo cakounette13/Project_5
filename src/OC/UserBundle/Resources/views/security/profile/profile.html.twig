@@ -1,15 +1,17 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <div class="fos_user_user_show">
-        <div class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 text-center">
+    <div class="container-fluid">
+        <div class="row">
             <h1>Profil</h1>
-            <div class="col-xs-12">
-                <table class="table table-bordered table-condensed table-striped">
+        </div>
+
+        <div class="row">
+            <table class="table tableClient table-hover table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-center">Utilisateur</th>
-                        <th class="text-center">Email</th>
+                        <th>Utilisateur</th>
+                        <th>Email</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -20,11 +22,13 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row btn-group-vertical">
-                <a class="btn btn-default" href={{ path("security_edit_profile") }}>Changer de nom de compte</a>
-                <a class="btn btn-default" href={{ path("security_change_password") }}>Modifier votre mot de passe</a>
-                <a class="btn btn-default" href={{ path("accueil") }}>Retour à l'accueil</a>
+            <div class="row">
+                <a class="btn btn-default active" href={{ path("security_edit_profile") }}>Modifier le nom du compte</a>
+                <a class="btn btn-default active" href={{ path("security_change_password") }}>Modifier votre mot de passe</a>
             </div>
         </div>
+    <div class="row">
+        <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
+    </div>
     </div>
 {% endblock %}

@@ -54,7 +54,7 @@ class ChangePasswordService {
 		if ( $form->isValid() )
 		{
 			$username = $this->token->getToken()->getUser()->getUSername();
-			$user = $this->em->getRepository('UserBundle:User')->findOneBy(['username' => $username]);
+			$user = $this->em->getRepository('OCUserBundle:User')->findOneBy(['username' => $username]);
 			$data = $form->getData();
 			$user->setPlainPassword( $data['plainPassword'] );
 			$this->em->persist($user);

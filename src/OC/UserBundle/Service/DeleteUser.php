@@ -26,19 +26,19 @@ class DeleteUser {
 	public function deleteUser(Request $request)
 	{
 		$userId = $request->get('id');
-		$userManager = $this->em->getRepository('UserBundle:User');
+		$userManager = $this->em->getRepository('OCUserBundle:User');
 		$user = $userManager->findOneBy(['id' => $userId]);
-		$datas = $this->em->getRepository('BirdBundle:Datas')->findByMember($userId);
+		$datas = $this->em->getRepository('OCUserBundle:User')->findById($userId);
 
         if ($datas != null) {
-            return $this->session->getFlashBag()->add('validation', 'Suppression impossible car l\'utilisateur '.$user->getUsername().' est relié à une observation');
+            return $this->session->getFlashBag()->add('warning', 'Suppression impossible car l\'utilisateur '.$user->getUsername().' est relié à une vente');
         } elseif ($user instanceof User)
 		{
-			$flash = $this->session->getFlashBag()->add('validation', 'Utilisateur '.$user->getUsername().' supprimé.' );
+			$flash = $this->session->getFlashBag()->add('success', 'Utilisateur '.$user->getUsername().' supprimé.' );
 			$this->em->remove($user);
 			$this->em->flush();
 			return $flash;
 		}
-		return $this->session->getFlashBag()->add('validation', 'Mauvais utilisateur pour cette operation');
+		return $this->session->getFlashBag()->add('warning', 'Mauvais utilisateur pour cette opération');
 	}
 }

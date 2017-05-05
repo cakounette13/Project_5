@@ -32,15 +32,10 @@ class UserRepository extends EntityRepository
 
 	public function findByRole($role)
 	{
-		$qb = $this->createQueryBuilder('u');
-		$qb->select('u')
-		   ->leftJoin('u.groups', 'g')
-		   ->where($qb->expr()->orX(
-			   $qb->expr()->like('u.roles', ':roles'),
-			   $qb->expr()->like('g.roles', ':roles')
-		   ))
-		   ->setParameter('roles', '%"'.$role.'"%');
-
-		return $qb->getQuery()->getResult();
+		return $this->createQueryBuilder('u')
+            ->where('u.role = :role')
+            ->setParameter('role', $role)
+            ->getQuery()
+            ->getOneOrNullResult();
 	}
 }

@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use OC\FideliteBundle\Entity\Client;
 use OC\FideliteBundle\Entity\Vente;
+use OC\UserBundle\Entity\User;
 
 class LoadFixtures implements FixtureInterface
 {
@@ -84,6 +85,12 @@ class LoadFixtures implements FixtureInterface
         $vente5->setPointFideliteVente('15.69');
         $vente5->setPointsFideliteUtilises('0');
 
+        $user = new User();
+        $user->setUsername('carine');
+        $user->setPlainPassword('qwerty');
+        $user->setEmail('carinedelrieux@gmail.com');
+        $user->setRole('ROLE_ADMIN');
+
         $manager->persist($client);
         $manager->persist($client2);
         $manager->persist($client3);
@@ -92,6 +99,7 @@ class LoadFixtures implements FixtureInterface
         $manager->persist($vente3);
         $manager->persist($vente4);
         $manager->persist($vente5);
+        $manager->persist($user);
 
         $manager->flush();
     }

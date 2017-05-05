@@ -3,77 +3,42 @@
 {% block title %}Administration - {{ parent() }} {% endblock %}
 
 {% block body %}
-        <h1 class="text-center">Gestion des membres</h1>
-{% for deletion in app.session.flashbag.get('deletion') %}
-    <div class="col-xs-12 col-xs-offset-4 col-lg-offset-5">
-        {{ deletion }}
-    </div>
-{% endfor %}
-{% for validation in app.session.flashbag.get('validation') %}
-    <div class="alert alert-warning alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <p class="text-center">{{ validation }}</p>
-    </div>
-{% endfor %}
+    <h1 class="text-center">Gestion des membres</h1>
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-        <h2 class="text-center">Observateurs</h2>
-        <div class="panel panel-default">
-            <div class="table-bordered">
-                <table id="mytable" class="table table-bordered table-condensed table-centered">
+        <h2>Utilisateurs</h2>
+        <div class="container-fluid">
+            <div class="row">
+                <table class="table tableMembre table-hover table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-center">Email</th>
-                        <th class="text-center">Nom</th>
-                        <th class="text-center">Supprimer</th>
+                        <th>Email</th>
+                        <th>Nom</th>
+                        <th>Supprimer</th>
                     </tr>
                     </thead>
                     <tbody>
                         {% for user in users %}
                             {% if 'ROLE_ADMIN' not in user.roles %}
-                            {% if 'ROLE_SUPER_USER' not in user.roles %}
-                            <tr class="text-center">
+                            <tr>
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.username }}</td>
-                                <td><a href="{{ path('delete_user', {'id': user.id}) }}"><button class="btn-ghost"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button></a></td>
+                                <td class="text-center"><a href="{{ path('delete_user', {'id': user.id}) }}"><image src={{ asset('images/glyphicons/png/glyphicons-17-bin.png') }} alt="supprimer"></image></a></td>
                             </tr>
-                            {% endif %}
                             {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-        <h2 class="text-center">Naturalistes</h2>
-        <div class="panel panel-default">
-            <div class="table-bordered">
-                <div class="table-responsive">
-                    <table id="mytable" class="table table-bordered table-condensed table-centered">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Nom</th>
-                                <th class="text-center">Rétrograder</th>
-                                <th class="text-center">Supprimer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for user in users %}
-                                {% if 'ROLE_ADMIN' not in user.roles %}
-                                    {% if 'ROLE_SUPER_USER' in user.roles %}
-                                        <tr class="text-center">
-                                            <td>{{ user.email }}</td>
-                                            <td>{{ user.username }}</td>
-                                            <td><a href="{{ path('demote_user', {'id': user.id}) }}"><button class="btn-ghost"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button></a></td>
-                                            <td><a href="{{ path('delete_user', {'id': user.id}) }}"><button class="btn-ghost"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button></a></td>
-                                        </tr>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+            <div class="row">
+                <a role="button" class="btn btn-default active" href={{ path("accueil") }}>Accueil</a>
             </div>
         </div>
     </div>
